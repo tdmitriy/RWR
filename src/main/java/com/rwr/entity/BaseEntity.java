@@ -3,11 +3,14 @@ package com.rwr.entity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 /**
  * Created by Dmitriy on 29.10.2015.
  */
+
+@MappedSuperclass
 public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

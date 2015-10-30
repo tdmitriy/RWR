@@ -4,12 +4,5 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="seekerDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="com.rwr.dao.seeker.ISeekerDao"/>
-        <property name="sqlSessionFactory" ref="sessionFactory"/>
-    </bean>
-
-    <bean id="seekerService" class="com.rwr.service.SeekerServiceImpl">
-        <property name="seekerDao" ref="seekerDao"/>
-    </bean>
+    <!-- TODO dao service beans -->
 </beans>

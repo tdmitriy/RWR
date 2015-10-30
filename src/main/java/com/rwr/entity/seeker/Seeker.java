@@ -4,6 +4,9 @@ import com.rwr.entity.BaseEntity;
 import com.rwr.entity.contacts.Contacts;
 import org.springframework.core.style.ToStringCreator;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
@@ -11,18 +14,30 @@ import java.util.List;
  * Created by Dmitriy on 29.10.2015.
  */
 
+@Entity
+@Table(name = "SEEKER")
 public class Seeker extends BaseEntity {
 
+    @Column(name = "first_name", nullable = false)
     private String firstName;
+
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+
+    @Column(name = "date_of_addition", nullable = false)
     private Date dateOfAddition;
+
+    @Column(name = "date_of_interview", nullable = false)
     private Date dateOfInterview;
-    private List<Contacts> contacts;
+
+
+    //TODO
+    private Contacts contacts;
 
     public Seeker() {
     }
 
-    public Seeker(String firstName, String lastName, Date dateOfAddition, Date dateOfInterview, List<Contacts> contacts) {
+    public Seeker(String firstName, String lastName, Date dateOfAddition, Date dateOfInterview, Contacts contacts) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfAddition = dateOfAddition;
@@ -30,7 +45,7 @@ public class Seeker extends BaseEntity {
         this.contacts = contacts;
     }
 
-    public Seeker(Integer id, String firstName, String lastName, Date dateOfAddition, Date dateOfInterview, List<Contacts> contacts) {
+    public Seeker(Integer id, String firstName, String lastName, Date dateOfAddition, Date dateOfInterview, Contacts contacts) {
         super.setId(id);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -71,11 +86,11 @@ public class Seeker extends BaseEntity {
         this.dateOfInterview = dateOfInterview;
     }
 
-    public List<Contacts> getContacts() {
+    public Contacts getContacts() {
         return contacts;
     }
 
-    public void setContacts(List<Contacts> contacts) {
+    public void setContacts(Contacts contacts) {
         this.contacts = contacts;
     }
 
