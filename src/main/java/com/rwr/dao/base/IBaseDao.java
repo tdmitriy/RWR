@@ -13,9 +13,7 @@ public interface IBaseDao<E extends BaseEntity> {
 
     Collection<E> getAll();
 
-    void save(E entity);
-
-    void update(E entity);
+    void saveOrUpdate(E entity);
 
     void delete(E entity);
 

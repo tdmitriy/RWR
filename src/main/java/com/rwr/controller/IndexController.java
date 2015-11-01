@@ -32,8 +32,8 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.GET)
-    public void save() {
-        /*Seeker seeker = new Seeker();
+    public String save() {
+        Seeker seeker = new Seeker();
         SeekerPhone phone = new SeekerPhone("12345");
         SeekerEmail email = new SeekerEmail("test@lala.com");
 
@@ -47,11 +47,17 @@ public class IndexController {
         seeker.setDateOfAddition(new Date());
         seeker.setDateOfInterview(new Date());
 
-        SeekerContacts seekerSeekerContacts = new SeekerContacts(phones, emails);
+        SeekerContacts seekerSeekerContacts = new SeekerContacts(phones, emails, seeker);
 
-        seeker.setSeekerContacts(seekerSeekerContacts);
+        seekerService.saveOrUpdate(seeker);
+        return INDEX_PAGE;
+    }
 
-        seekerService.save(seeker);*/
-
+    @RequestMapping(value = "/addPhone", method = RequestMethod.GET)
+    public String addPhone() {
+        Seeker seeker = seekerService.getById(6);
+        SeekerPhone phone = new SeekerPhone("0672222");
+        seekerService.addPhone(seeker.getId(), phone);
+        return INDEX_PAGE;
     }
 }

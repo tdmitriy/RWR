@@ -4,6 +4,8 @@ import com.rwr.entity.email.SeekerEmail;
 import com.rwr.entity.ims.SeekerIms;
 import com.rwr.entity.phone.SeekerPhone;
 import com.rwr.entity.seeker.Seeker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -16,17 +18,26 @@ import java.util.Set;
 @Embeddable
 public class SeekerContacts {
 
+    @Transient
+    private static final Logger log = LoggerFactory.getLogger(SeekerContacts.class);
+
     @OneToMany(mappedBy = "phoneOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<SeekerPhone> seekerPhones = new HashSet<>(0);
 
     @OneToMany(mappedBy = "emailOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<SeekerEmail> seekerEmails = new HashSet<>(0);
+
+    //TODO add ims
     //private Set<SeekerIms> imss = new HashSet<>(0);
 
     @Transient
     private Seeker contactsOwner;
 
     public SeekerContacts() {
+    }
+
+    public SeekerContacts(Seeker contactsOwner) {
+        this.contactsOwner = contactsOwner;
     }
 
     public SeekerContacts(Set<SeekerPhone> seekerPhones, Set<SeekerEmail> seekerEmails, Seeker contactsOwner) {
@@ -39,7 +50,8 @@ public class SeekerContacts {
         return seekerPhones;
     }
 
-    public void setSeekerPhones(Set<SeekerPhone> seekerPhones) {
+    public void setSeekerPhones(Set<SeekerPhone> seekerPhones, Seeker contactsOwner) {
+        this.contactsOwner = contactsOwner;
         this.seekerPhones = seekerPhones;
         setContactOwnerToPhones();
     }
@@ -48,18 +60,11 @@ public class SeekerContacts {
         return seekerEmails;
     }
 
-    public void setSeekerEmails(Set<SeekerEmail> seekerEmails) {
+    public void setSeekerEmails(Set<SeekerEmail> seekerEmails, Seeker contactsOwner) {
+        this.contactsOwner = contactsOwner;
         this.seekerEmails = seekerEmails;
         setContactsOwnerToEmails();
     }
-
-    /*public Set<SeekerIms> getImss() {
-        return imss;
-    }
-
-    public void setImss(Set<SeekerIms> imss) {
-        this.imss = imss;
-    }*/
 
     public Seeker getContactsOwner() {
         return contactsOwner;
@@ -69,34 +74,17 @@ public class SeekerContacts {
         this.contactsOwner = contactsOwner;
         setContactOwnerToPhones();
         setContactsOwnerToEmails();
+        //TODO add ims
     }
 
     private void setContactOwnerToPhones() {
-        if (this.contactsOwner != null) {
-            for (SeekerPhone phone : seekerPhones) {
-                phone.setPhoneOwner(contactsOwner);
-            }
-        }
-    }
-
-    private void setContactsOwnerToEmails() {
-        if (this.contactsOwner != null) {
-            for (SeekerEmail email : seekerEmails) {
-                email.setEmailOwner(contactsOwner);
-            }
-        }
-    }
-
-    public void addNewPhone(SeekerPhone phone) {
-        if (this.contactsOwner != null) {
-            seekerPhones.add(phone);
+        for (SeekerPhone phone : seekerPhones) {
             phone.setPhoneOwner(contactsOwner);
         }
     }
 
-    public void addNewEmail(SeekerEmail email) {
-        if (this.contactsOwner != null) {
-            seekerEmails.add(email);
+    private void setContactsOwnerToEmails() {
+        for (SeekerEmail email : seekerEmails) {
             email.setEmailOwner(contactsOwner);
         }
     }

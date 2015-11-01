@@ -1,6 +1,7 @@
 package com.rwr.dao.seeker;
 
 import com.rwr.dao.base.BaseDaoImpl;
+import com.rwr.dao.contacts.ContactsDaoImpl;
 import com.rwr.entity.contacts.SeekerContacts;
 import com.rwr.entity.email.SeekerEmail;
 import com.rwr.entity.phone.SeekerPhone;
@@ -17,32 +18,22 @@ import java.util.Set;
 public class SeekerDaoImpl extends BaseDaoImpl<Seeker> implements ISeekerDao {
 
     @Override
-    public SeekerContacts getSeekerContacts(Integer seekerId) {
-        return null;
-    }
-
-    @Override
-    public SeekerContacts getSeekerContacts(Seeker owner) {
-        return null;
-    }
-
-    @Override
-    public void addContacts(Integer seekerId, SeekerContacts contacts) {
+    public void saveOrUpdatePhone(Integer seekerId, SeekerPhone phone) {
 
     }
 
     @Override
-    public void addContacts(Seeker owner, SeekerContacts contacts) {
+    public void deletePhone(Integer seekerId, Integer phoneId) {
 
     }
 
     @Override
-    public void addPhone(Integer seekerId, SeekerPhone phone) {
+    public void saveOrUpdateEmail(Integer seekerId, SeekerEmail email) {
 
     }
 
     @Override
-    public void addEmail(Integer seekerId, SeekerEmail email) {
+    public void deleteEmail(Integer seekerId, Integer emailId) {
 
     }
 }

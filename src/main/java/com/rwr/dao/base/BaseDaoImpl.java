@@ -35,12 +35,7 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements IBaseDao<E> {
     }
 
     @Override
-    public void save(final E entity) {
-        entityManager.persist(entity);
-    }
-
-    @Override
-    public void update(final E entity) {
+    public void saveOrUpdate(final E entity) {
         entityManager.merge(entity);
     }
 

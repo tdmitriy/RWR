@@ -5,6 +5,7 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="seekerDao" class="com.rwr.dao.seeker.SeekerDaoImpl"/>
+    <bean id="contactsDao" class="com.rwr.dao.contacts.ContactsDaoImpl"/>
 
     <bean id="seekerService" class="com.rwr.service.SeekerServiceImpl">
         <property name="seekerDao" ref="seekerDao"/>
