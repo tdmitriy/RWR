@@ -9,7 +9,7 @@ import java.util.Collection;
  */
 
 public interface IBaseDao<E extends BaseEntity> {
-    E getById(Long id);
+    E getById(Integer id);
 
     Collection<E> getAll();
 
@@ -19,5 +19,5 @@ public interface IBaseDao<E extends BaseEntity> {
 
     void delete(E entity);
 
-    void deleteById(Long id);
+    void deleteById(Integer id);
 }

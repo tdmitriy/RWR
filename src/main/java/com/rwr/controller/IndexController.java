@@ -1,5 +1,8 @@
 package com.rwr.controller;
 
+import com.rwr.entity.contacts.SeekerContacts;
+import com.rwr.entity.email.SeekerEmail;
+import com.rwr.entity.phone.SeekerPhone;
 import com.rwr.entity.seeker.Seeker;
 import com.rwr.service.ISeekerService;
 import org.slf4j.Logger;
@@ -9,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by haswell on 29.10.15.
@@ -25,8 +28,30 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showIndexPage() {
-        Seeker seeker = seekerService.getById(1);
-        if(seeker != null) log.info(seeker.toString());
         return INDEX_PAGE;
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.GET)
+    public void save() {
+        /*Seeker seeker = new Seeker();
+        SeekerPhone phone = new SeekerPhone("12345");
+        SeekerEmail email = new SeekerEmail("test@lala.com");
+
+        Set<SeekerPhone> phones = new HashSet<>();
+        Set<SeekerEmail> emails = new HashSet<>();
+        phones.add(phone);
+        emails.add(email);
+
+        seeker.setFirstName("testFname");
+        seeker.setLastName("testLname");
+        seeker.setDateOfAddition(new Date());
+        seeker.setDateOfInterview(new Date());
+
+        SeekerContacts seekerSeekerContacts = new SeekerContacts(phones, emails);
+
+        seeker.setSeekerContacts(seekerSeekerContacts);
+
+        seekerService.save(seeker);*/
+
     }
 }

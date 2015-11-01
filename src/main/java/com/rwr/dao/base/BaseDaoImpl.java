@@ -16,7 +16,7 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements IBaseDao<E> {
     private final Class<E> clazz;
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
     @SuppressWarnings("unchecked")
     public BaseDaoImpl() {
@@ -24,35 +24,39 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements IBaseDao<E> {
     }
 
     @Override
-    public E getById(final Long id) {
-        return em.find(this.clazz, id);
+    public E getById(final Integer id) {
+        return entityManager.find(this.clazz, id);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public Collection<E> getAll() {
-        return em.createQuery("from " + this.clazz.getName()).getResultList();
+        return entityManager.createQuery("from " + this.clazz.getName()).getResultList();
     }
 
     @Override
     public void save(final E entity) {
-        em.persist(entity);
+        entityManager.persist(entity);
     }
 
     @Override
     public void update(final E entity) {
-        em.merge(entity);
+        entityManager.merge(entity);
     }
 
     //works only on entities which are managed in the current transaction/context
     @Override
     public void delete(final E entity) {
-        em.remove(em.contains(entity) ? entity : em.merge(entity));
+        entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
     }
 
     @Override
-    public void deleteById(final Long id) {
+    public void deleteById(final Integer id) {
         E entity = this.getById(id);
         this.delete(entity);
+    }
+
+    protected EntityManager getEntityManager() {
+        return entityManager;
     }
 }

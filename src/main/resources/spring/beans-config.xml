@@ -4,5 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- TODO dao service beans -->
+    <bean id="seekerDao" class="com.rwr.dao.seeker.SeekerDaoImpl"/>
+
+    <bean id="seekerService" class="com.rwr.service.SeekerServiceImpl">
+        <property name="seekerDao" ref="seekerDao"/>
+    </bean>
 </beans>

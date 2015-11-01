@@ -1,12 +1,24 @@
 package com.rwr.entity.email;
 
 import com.rwr.entity.BaseEntity;
+import com.rwr.entity.seeker.Seeker;
+
+import javax.persistence.*;
 
 /**
  * Created by haswell on 30.10.15.
  */
+
+@Entity
+@Table(name = "SEEKER_EMAIL")
 public class SeekerEmail extends BaseEntity {
+
+    @Column(name = "email")
     private String email;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "seeker_id")
+    private Seeker emailOwner;
 
     public SeekerEmail() {
     }
@@ -21,5 +33,21 @@ public class SeekerEmail extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Seeker getEmailOwner() {
+        return emailOwner;
+    }
+
+    public void setEmailOwner(Seeker emailOwner) {
+        this.emailOwner = emailOwner;
+    }
+
+    @Override
+    public String toString() {
+        return "SeekerEmail{" +
+                "email='" + email + '\'' +
+                ", emailOwner=" + emailOwner +
+                '}';
     }
 }
