@@ -1,6 +1,7 @@
 package com.rwr.dao.contacts;
 
 import com.rwr.entity.email.SeekerEmail;
+import com.rwr.entity.ims.SeekerIms;
 import com.rwr.entity.phone.SeekerPhone;
 
 import javax.persistence.EntityManager;
@@ -67,5 +68,31 @@ public class ContactsDaoImpl implements IContactsDao {
         deleteQuery.executeUpdate();
     }
 
-    //TODO add ims
+    @Override
+    public void saveOrUpdateIms(Integer seekerId, SeekerIms seekerIms) {
+        if (seekerIms.getId() == null) {
+            String sql = "INSERT INTO SEEKER_IMS (ims_type_id, ims_login, seeker_id) VALUES (?, ?, ?)";
+            Query insertQuery = entityManager.createNativeQuery(sql);
+            insertQuery.setParameter(1, seekerIms.getImsType().getId());
+            insertQuery.setParameter(2, seekerIms.getImsLogin());
+            insertQuery.setParameter(3, seekerIms.getImsOwner().getId());
+            insertQuery.executeUpdate();
+        } else {
+            String sql = "UPDATE SEEKER_IMS SET ims_type_id=?, ims_login=? WHERE id=? AND seeker_id=?";
+            Query insertQuery = entityManager.createNativeQuery(sql);
+            insertQuery.setParameter(1, seekerIms.getImsType().getId());
+            insertQuery.setParameter(2, seekerIms.getImsLogin());
+            insertQuery.setParameter(3, seekerIms.getId());
+            insertQuery.setParameter(4, seekerIms.getImsOwner().getId());
+            insertQuery.executeUpdate();
+        }
+    }
+
+    @Override
+    public void deleteIms(Integer seekerId, Integer imsId) {
+        Query deleteQuery = entityManager.createNativeQuery("DELETE FROM SEEKER_IMS WHERE id=? AND seeker_id=?");
+        deleteQuery.setParameter(1, imsId);
+        deleteQuery.setParameter(2, seekerId);
+        deleteQuery.executeUpdate();
+    }
 }

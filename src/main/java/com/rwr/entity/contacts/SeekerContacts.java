@@ -27,8 +27,8 @@ public class SeekerContacts {
     @OneToMany(mappedBy = "emailOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<SeekerEmail> seekerEmails = new HashSet<>(0);
 
-    //TODO add ims
-    //private Set<SeekerIms> imss = new HashSet<>(0);
+    @OneToMany(mappedBy = "imsOwner", fetch = FetchType.EAGER)
+    private Set<SeekerIms> seekerIms = new HashSet<>(0);
 
     @Transient
     private Seeker contactsOwner;
@@ -50,8 +50,7 @@ public class SeekerContacts {
         return seekerPhones;
     }
 
-    public void setSeekerPhones(Set<SeekerPhone> seekerPhones, Seeker contactsOwner) {
-        this.contactsOwner = contactsOwner;
+    public void setSeekerPhones(Set<SeekerPhone> seekerPhones) {
         this.seekerPhones = seekerPhones;
         setContactOwnerToPhones();
     }
@@ -60,8 +59,7 @@ public class SeekerContacts {
         return seekerEmails;
     }
 
-    public void setSeekerEmails(Set<SeekerEmail> seekerEmails, Seeker contactsOwner) {
-        this.contactsOwner = contactsOwner;
+    public void setSeekerEmails(Set<SeekerEmail> seekerEmails) {
         this.seekerEmails = seekerEmails;
         setContactsOwnerToEmails();
     }
@@ -70,12 +68,23 @@ public class SeekerContacts {
         return contactsOwner;
     }
 
+
+    public Set<SeekerIms> getSeekerIms() {
+        return seekerIms;
+    }
+
+    public void setSeekerImses(Set<SeekerIms> seekerIms) {
+        this.seekerIms = seekerIms;
+        setContactsOwnerToIms();
+    }
+
     public void setContactsOwner(Seeker contactsOwner) {
         this.contactsOwner = contactsOwner;
         setContactOwnerToPhones();
         setContactsOwnerToEmails();
-        //TODO add ims
+        setContactsOwnerToIms();
     }
+
 
     private void setContactOwnerToPhones() {
         for (SeekerPhone phone : seekerPhones) {
@@ -86,6 +95,12 @@ public class SeekerContacts {
     private void setContactsOwnerToEmails() {
         for (SeekerEmail email : seekerEmails) {
             email.setEmailOwner(contactsOwner);
+        }
+    }
+
+    private void setContactsOwnerToIms() {
+        for (SeekerIms ims : seekerIms) {
+            ims.setImsOwner(contactsOwner);
         }
     }
 }

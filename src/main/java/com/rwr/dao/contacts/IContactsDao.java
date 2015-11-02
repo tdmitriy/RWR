@@ -2,6 +2,7 @@ package com.rwr.dao.contacts;
 
 import com.rwr.entity.contacts.SeekerContacts;
 import com.rwr.entity.email.SeekerEmail;
+import com.rwr.entity.ims.SeekerIms;
 import com.rwr.entity.phone.SeekerPhone;
 import com.rwr.entity.seeker.Seeker;
 
@@ -17,5 +18,8 @@ public interface IContactsDao {
 
     void deleteEmail(Integer seekerId, Integer emailId);
 
-    //TODO add ims
+    void saveOrUpdateIms(Integer seekerId, SeekerIms seekerIms);
+
+    void deleteIms(Integer seekerId, Integer imsId);
+
 }

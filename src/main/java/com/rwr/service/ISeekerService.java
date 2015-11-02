@@ -6,7 +6,6 @@ import com.rwr.entity.phone.SeekerPhone;
 import com.rwr.entity.seeker.Seeker;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Dmitriy on 29.10.2015.

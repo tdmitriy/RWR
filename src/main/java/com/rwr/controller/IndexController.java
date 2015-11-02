@@ -1,7 +1,11 @@
 package com.rwr.controller;
 
+import com.rwr.dao.contacts.IContactsDao;
+import com.rwr.dao.ims.IImsDao;
 import com.rwr.entity.contacts.SeekerContacts;
 import com.rwr.entity.email.SeekerEmail;
+import com.rwr.entity.ims.ImsType;
+import com.rwr.entity.ims.SeekerIms;
 import com.rwr.entity.phone.SeekerPhone;
 import com.rwr.entity.seeker.Seeker;
 import com.rwr.service.ISeekerService;
@@ -26,6 +30,9 @@ public class IndexController {
     @Autowired
     private ISeekerService seekerService;
 
+    @Autowired
+    private IContactsDao contactsDao;
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showIndexPage() {
         return INDEX_PAGE;
@@ -33,23 +40,9 @@ public class IndexController {
 
     @RequestMapping(value = "/save", method = RequestMethod.GET)
     public String save() {
-        Seeker seeker = new Seeker();
-        SeekerPhone phone = new SeekerPhone("12345");
-        SeekerEmail email = new SeekerEmail("test@lala.com");
+        SeekerPhone phone = new SeekerPhone("000000");
+        contactsDao.saveOrUpdatePhone(2, phone);
 
-        Set<SeekerPhone> phones = new HashSet<>();
-        Set<SeekerEmail> emails = new HashSet<>();
-        phones.add(phone);
-        emails.add(email);
-
-        seeker.setFirstName("testFname");
-        seeker.setLastName("testLname");
-        seeker.setDateOfAddition(new Date());
-        seeker.setDateOfInterview(new Date());
-
-        SeekerContacts seekerSeekerContacts = new SeekerContacts(phones, emails, seeker);
-
-        seekerService.saveOrUpdate(seeker);
         return INDEX_PAGE;
     }
 

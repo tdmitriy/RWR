@@ -91,7 +91,6 @@ public class Seeker extends BaseEntity {
 
     public void setContacts(SeekerContacts contacts) {
         this.contacts = contacts;
-        this.contacts.setContactsOwner(this);
     }
 
     @Override
