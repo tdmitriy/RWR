@@ -27,7 +27,7 @@ public class SeekerContacts {
     @OneToMany(mappedBy = "emailOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<SeekerEmail> seekerEmails = new HashSet<>(0);
 
-    @OneToMany(mappedBy = "imsOwner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "imsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<SeekerIms> seekerIms = new HashSet<>(0);
 
     @Transient
@@ -102,5 +102,14 @@ public class SeekerContacts {
         for (SeekerIms ims : seekerIms) {
             ims.setImsOwner(contactsOwner);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "SeekerContacts{" +
+                "seekerPhonesSize=" + seekerPhones.size() +
+                ", seekerEmailsSize=" + seekerEmails.size() +
+                ", seekerImsSize=" + seekerIms.size() +
+                '}';
     }
 }

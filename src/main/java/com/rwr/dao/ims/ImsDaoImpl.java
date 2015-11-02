@@ -12,7 +12,8 @@ public class ImsDaoImpl extends BaseDaoImpl<ImsType> implements IImsDao {
     @SuppressWarnings("JpaQlInspection")
     @Override
     public ImsType getByName(String typeName) {
-        Query selectQuery = getEntityManager().createQuery("SELECT t FROM ImsType t WHERE t.typeName=:typeName", ImsType.class);
+        Query selectQuery = getEntityManager()
+                .createQuery("SELECT t FROM ImsType t WHERE t.typeName=:typeName", ImsType.class);
         selectQuery.setParameter("typeName", typeName);
         return (ImsType) selectQuery.getSingleResult();
     }

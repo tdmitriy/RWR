@@ -27,9 +27,17 @@ public class SeekerIms extends BaseEntity {
     public SeekerIms() {
     }
 
-    public SeekerIms(String imsLogin, ImsType imsType) {
+    public SeekerIms(String imsLogin, ImsType imsType, Seeker imsOwner) {
         this.imsLogin = imsLogin;
         this.imsType = imsType;
+        this.imsOwner = imsOwner;
+    }
+
+    public SeekerIms(Integer id, String imsLogin, ImsType imsType, Seeker imsOwner) {
+        super.setId(id);
+        this.imsLogin = imsLogin;
+        this.imsType = imsType;
+        this.imsOwner = imsOwner;
     }
 
     public String getImsLogin() {

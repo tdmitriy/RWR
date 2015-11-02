@@ -2,9 +2,11 @@ package com.rwr.entity.seeker;
 
 import com.rwr.entity.BaseEntity;
 import com.rwr.entity.contacts.SeekerContacts;
+import com.rwr.entity.skills.SeekerSkills;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Dmitriy on 29.10.2015.
@@ -31,26 +33,10 @@ public class Seeker extends BaseEntity {
     @Embedded
     private SeekerContacts contacts;
 
+    @OneToMany(mappedBy = "skillsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<SeekerSkills> seekerSkills;
+
     public Seeker() {
-    }
-
-    public Seeker(final String firstName, final String lastName, final Date dateOfAddition, final Date dateOfInterview,
-                  final SeekerContacts contacts) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfAddition = dateOfAddition;
-        this.dateOfInterview = dateOfInterview;
-        this.contacts = contacts;
-    }
-
-    public Seeker(final Integer id, final String firstName, final String lastName, final Date dateOfAddition,
-                  final Date dateOfInterview, final SeekerContacts contacts) {
-        super.setId(id);
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfAddition = dateOfAddition;
-        this.dateOfInterview = dateOfInterview;
-        this.contacts = contacts;
     }
 
     public String getFirstName() {
@@ -85,6 +71,14 @@ public class Seeker extends BaseEntity {
         this.dateOfInterview = dateOfInterview;
     }
 
+    public Set<SeekerSkills> getSeekerSkills() {
+        return seekerSkills;
+    }
+
+    public void setSeekerSkills(Set<SeekerSkills> seekerSkills) {
+        this.seekerSkills = seekerSkills;
+    }
+
     public SeekerContacts getContacts() {
         return contacts;
     }
@@ -100,7 +94,6 @@ public class Seeker extends BaseEntity {
                 ", lastName='" + lastName + '\'' +
                 ", dateOfAddition=" + dateOfAddition +
                 ", dateOfInterview=" + dateOfInterview +
-                ", seekerContacts=" + contacts +
                 '}';
     }
 }

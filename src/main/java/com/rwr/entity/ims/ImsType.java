@@ -2,7 +2,9 @@ package com.rwr.entity.ims;
 
 import com.rwr.entity.BaseEntity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by haswell on 30.10.15.
@@ -16,6 +18,10 @@ public class ImsType extends BaseEntity {
     private String typeName;
 
     public ImsType() {
+    }
+
+    public ImsType(Integer id) {
+        super.setId(id);
     }
 
     public ImsType(String typeName) {

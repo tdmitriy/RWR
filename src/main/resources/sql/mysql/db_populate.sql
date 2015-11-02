@@ -30,7 +30,7 @@ INSERT INTO SEEKER_IMS (ims_type_id, ims_login, seeker_id) VALUES
   (3, 'MSN_LOGIN1', 2),
   (4, 'JABBER_LOGIN1', 2);
 
-INSERT INTO SKILLS_TYPE (id, type) VALUES
+INSERT INTO SKILL_TYPE (id, type) VALUES
   (1, 'Java'),
   (2, 'C++'),
   (3, 'C'),

@@ -4,15 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="seekerDao" class="com.rwr.dao.seeker.SeekerDaoImpl">
-        <property name="contactsDao" ref="contactsDao"/>
-    </bean>
-    <bean id="contactsDao" class="com.rwr.dao.contacts.ContactsDaoImpl"/>
+    <bean id="seekerDao" class="com.rwr.dao.seeker.SeekerDaoImpl"/>
     <bean id="imsDao" class="com.rwr.dao.ims.ImsDaoImpl"/>
     <bean id="skillsDao" class="com.rwr.dao.skills.SkillsDaoImpl"/>
 
-
-    <bean id="seekerService" class="com.rwr.service.SeekerServiceImpl">
-        <property name="seekerDao" ref="seekerDao"/>
-    </bean>
+    <bean id="rwrService" class="com.rwr.service.RwrManagementServiceImpl"/>
 </beans>

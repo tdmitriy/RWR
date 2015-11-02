@@ -11,16 +11,25 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "SKILLS_TYPE")
-public class SkillsType extends BaseEntity {
+@Table(name = "SKILL_TYPE")
+public class SkillType extends BaseEntity {
 
     @Column(name = "type")
     private String skillType;
 
-    public SkillsType() {
+    public SkillType() {
     }
 
-    public SkillsType(String skillType) {
+    public SkillType(Integer id) {
+        super.setId(id);
+    }
+
+    public SkillType(String skillType) {
+        this.skillType = skillType;
+    }
+
+    public SkillType(Integer id, String skillType) {
+        super.setId(id);
         this.skillType = skillType;
     }
 
