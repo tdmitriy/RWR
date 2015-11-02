@@ -40,9 +40,11 @@ public class SeekerContacts {
         this.contactsOwner = contactsOwner;
     }
 
-    public SeekerContacts(Set<SeekerPhone> seekerPhones, Set<SeekerEmail> seekerEmails, Seeker contactsOwner) {
+    public SeekerContacts(Set<SeekerPhone> seekerPhones,
+                          Set<SeekerEmail> seekerEmails, Set<SeekerIms> seekerIms, Seeker contactsOwner) {
         this.seekerPhones = seekerPhones;
         this.seekerEmails = seekerEmails;
+        this.seekerIms = seekerIms;
         this.contactsOwner = contactsOwner;
     }
 
