@@ -1,8 +1,5 @@
 package com.rwr.service;
 
-import com.rwr.dto.ims.ImsTypeDto;
-import com.rwr.dto.seeker.SeekerDto;
-import com.rwr.dto.skills.SkillTypeDto;
 import com.rwr.repository.IImsRepository;
 import com.rwr.repository.ISeekerRepository;
 import com.rwr.repository.ISkillsRepository;

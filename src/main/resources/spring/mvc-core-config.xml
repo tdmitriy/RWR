@@ -8,7 +8,10 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <mvc:resources mapping="/resources/**" location="resources/"/>
+    <mvc:resources mapping="/angular/**" location="/angular/"/>
+    <mvc:resources mapping="/build/**" location="/build/"/>
+    <mvc:resources mapping="/libs/**" location="/libs/"/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
