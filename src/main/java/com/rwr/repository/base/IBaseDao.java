@@ -1,4 +1,4 @@
-package com.rwr.dao.base;
+package com.rwr.repository.base;
 
 import com.rwr.entity.BaseEntity;
 

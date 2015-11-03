@@ -1,5 +1,6 @@
 package com.rwr.entity.seeker;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rwr.entity.BaseEntity;
 import com.rwr.entity.contacts.SeekerContacts;
 import com.rwr.entity.skills.SeekerSkills;
@@ -34,6 +35,7 @@ public class Seeker extends BaseEntity {
     private SeekerContacts contacts;
 
     @OneToMany(mappedBy = "skillsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Set<SeekerSkills> seekerSkills;
 
     public Seeker() {

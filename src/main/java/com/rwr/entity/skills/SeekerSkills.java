@@ -1,5 +1,6 @@
 package com.rwr.entity.skills;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.rwr.entity.BaseEntity;
 import com.rwr.entity.seeker.Seeker;
 
@@ -22,6 +23,7 @@ public class SeekerSkills extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "seeker_id")
+    @JsonBackReference
     private Seeker skillsOwner;
 
     public SeekerSkills() {

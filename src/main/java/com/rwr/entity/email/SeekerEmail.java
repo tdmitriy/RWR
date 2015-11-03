@@ -1,5 +1,6 @@
 package com.rwr.entity.email;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.rwr.entity.BaseEntity;
 import com.rwr.entity.seeker.Seeker;
 
@@ -18,6 +19,7 @@ public class SeekerEmail extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "seeker_id")
+    @JsonBackReference
     private Seeker emailOwner;
 
     public SeekerEmail() {

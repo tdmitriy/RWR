@@ -1,5 +1,9 @@
 package com.rwr.entity.contacts;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.rwr.entity.email.SeekerEmail;
 import com.rwr.entity.ims.SeekerIms;
 import com.rwr.entity.phone.SeekerPhone;
@@ -30,22 +34,14 @@ public class SeekerContacts {
     @OneToMany(mappedBy = "imsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<SeekerIms> seekerIms = new HashSet<>(0);
 
-    @Transient
-    private Seeker contactsOwner;
-
     public SeekerContacts() {
     }
 
-    public SeekerContacts(Seeker contactsOwner) {
-        this.contactsOwner = contactsOwner;
-    }
-
     public SeekerContacts(Set<SeekerPhone> seekerPhones,
-                          Set<SeekerEmail> seekerEmails, Set<SeekerIms> seekerIms, Seeker contactsOwner) {
+                          Set<SeekerEmail> seekerEmails, Set<SeekerIms> seekerIms) {
         this.seekerPhones = seekerPhones;
         this.seekerEmails = seekerEmails;
         this.seekerIms = seekerIms;
-        this.contactsOwner = contactsOwner;
     }
 
     public Set<SeekerPhone> getSeekerPhones() {
@@ -54,7 +50,6 @@ public class SeekerContacts {
 
     public void setSeekerPhones(Set<SeekerPhone> seekerPhones) {
         this.seekerPhones = seekerPhones;
-        setContactOwnerToPhones();
     }
 
     public Set<SeekerEmail> getSeekerEmails() {
@@ -63,13 +58,7 @@ public class SeekerContacts {
 
     public void setSeekerEmails(Set<SeekerEmail> seekerEmails) {
         this.seekerEmails = seekerEmails;
-        setContactsOwnerToEmails();
     }
-
-    public Seeker getContactsOwner() {
-        return contactsOwner;
-    }
-
 
     public Set<SeekerIms> getSeekerIms() {
         return seekerIms;
@@ -77,33 +66,7 @@ public class SeekerContacts {
 
     public void setSeekerImses(Set<SeekerIms> seekerIms) {
         this.seekerIms = seekerIms;
-        setContactsOwnerToIms();
-    }
 
-    public void setContactsOwner(Seeker contactsOwner) {
-        this.contactsOwner = contactsOwner;
-        setContactOwnerToPhones();
-        setContactsOwnerToEmails();
-        setContactsOwnerToIms();
-    }
-
-
-    private void setContactOwnerToPhones() {
-        for (SeekerPhone phone : seekerPhones) {
-            phone.setPhoneOwner(contactsOwner);
-        }
-    }
-
-    private void setContactsOwnerToEmails() {
-        for (SeekerEmail email : seekerEmails) {
-            email.setEmailOwner(contactsOwner);
-        }
-    }
-
-    private void setContactsOwnerToIms() {
-        for (SeekerIms ims : seekerIms) {
-            ims.setImsOwner(contactsOwner);
-        }
     }
 
     @Override
