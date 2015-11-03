@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * Created by haswell on 29.10.15.
  */
+
 @Controller
-public class IndexController {
-    private static final Logger log = LoggerFactory.getLogger(IndexController.class);
+public class SiteTemplateController {
+    private static final Logger log = LoggerFactory.getLogger(SiteTemplateController.class);
 
     private static final String INDEX_PAGE = "index";
 
@@ -30,17 +31,22 @@ public class IndexController {
         return INDEX_PAGE;
     }
 
-    @RequestMapping(value = "/page1", produces = MediaType.APPLICATION_JSON_VALUE ,method = RequestMethod.GET)
+    @RequestMapping(value = "/page1", produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     @ResponseBody
     public Page<Seeker> getPage1() {
-        Page<Seeker> page = rwrService.getAllPages(new PageRequest(0, 1));
+        Page<Seeker> page = rwrService.getAllSeekerPageable(new PageRequest(0, 1));
         return page;
     }
 
     @RequestMapping(value = "/page2", method = RequestMethod.GET)
     @ResponseBody
     public Page<Seeker> getPage2() {
-        Page<Seeker> page = rwrService.getAllPages(new PageRequest(1, 5));
+        Page<Seeker> page = rwrService.getAllSeekerPageable(new PageRequest(1, 5));
         return page;
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public String test() {
+        return INDEX_PAGE;
     }
 }

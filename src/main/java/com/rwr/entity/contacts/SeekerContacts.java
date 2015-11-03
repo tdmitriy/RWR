@@ -1,16 +1,8 @@
 package com.rwr.entity.contacts;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.rwr.entity.email.SeekerEmail;
 import com.rwr.entity.ims.SeekerIms;
 import com.rwr.entity.phone.SeekerPhone;
-import com.rwr.entity.seeker.Seeker;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -21,10 +13,6 @@ import java.util.Set;
 
 @Embeddable
 public class SeekerContacts {
-
-    @Transient
-    private static final Logger log = LoggerFactory.getLogger(SeekerContacts.class);
-
     @OneToMany(mappedBy = "phoneOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<SeekerPhone> seekerPhones = new HashSet<>(0);
 
@@ -66,15 +54,5 @@ public class SeekerContacts {
 
     public void setSeekerImses(Set<SeekerIms> seekerIms) {
         this.seekerIms = seekerIms;
-
-    }
-
-    @Override
-    public String toString() {
-        return "SeekerContacts{" +
-                "seekerPhonesSize=" + seekerPhones.size() +
-                ", seekerEmailsSize=" + seekerEmails.size() +
-                ", seekerImsSize=" + seekerIms.size() +
-                '}';
     }
 }

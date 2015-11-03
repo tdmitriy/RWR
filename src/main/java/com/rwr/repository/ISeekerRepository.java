@@ -13,8 +13,5 @@ import org.springframework.data.jpa.repository.Query;
 @SuppressWarnings("JpaQlInspection")
 public interface ISeekerRepository extends JpaRepository<Seeker, Integer> {
     @Query("SELECT s FROM com.rwr.entity.seeker.Seeker s")
-    Page<Seeker> findAllPages(Pageable pageable);
-
-    @Query("SELECT COUNT(s.id) FROM com.rwr.entity.seeker.Seeker s")
-    Long getSeekerCount();
+    Page<Seeker> getSeekerPageable(Pageable pageable);
 }

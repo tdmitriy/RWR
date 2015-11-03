@@ -1,10 +1,12 @@
 package com.rwr.dto.seeker;
 
 import com.rwr.dto.contacts.SeekerContactsDto;
+import com.rwr.dto.skills.SeekerSkillsDto;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Dmitriy on 01.11.2015.
@@ -16,18 +18,20 @@ public class SeekerDto {
     private Date dateOfAddition;
     private Date dateOfInterview;
     private SeekerContactsDto seekerContacts;
+    private Set<SeekerSkillsDto> seekerSkills;
 
     public SeekerDto() {
     }
 
     public SeekerDto(Integer id, String firstName, String lastName, Date dateOfAddition, Date dateOfInterview,
-                     SeekerContactsDto seekerContacts) {
+                     SeekerContactsDto seekerContacts, Set<SeekerSkillsDto> seekerSkills) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfAddition = dateOfAddition;
         this.dateOfInterview = dateOfInterview;
         this.seekerContacts = seekerContacts;
+        this.seekerSkills = seekerSkills;
     }
 
     public Integer getId() {
@@ -93,6 +97,7 @@ public class SeekerDto {
                 .append(dateOfAddition, seekerDto.dateOfAddition)
                 .append(dateOfInterview, seekerDto.dateOfInterview)
                 .append(seekerContacts, seekerDto.seekerContacts)
+                .append(seekerSkills, seekerDto.seekerSkills)
                 .isEquals();
     }
 
@@ -105,6 +110,7 @@ public class SeekerDto {
                 .append(dateOfAddition)
                 .append(dateOfInterview)
                 .append(seekerContacts)
+                .append(seekerSkills)
                 .toHashCode();
     }
 
@@ -116,7 +122,6 @@ public class SeekerDto {
                 ", lastName='" + lastName + '\'' +
                 ", dateOfAddition=" + dateOfAddition +
                 ", dateOfInterview=" + dateOfInterview +
-                ", seekerContacts=" + seekerContacts +
                 '}';
     }
 }

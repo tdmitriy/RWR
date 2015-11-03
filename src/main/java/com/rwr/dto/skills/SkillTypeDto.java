@@ -1,4 +1,4 @@
-package com.rwr.dto.ims;
+package com.rwr.dto.skills;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -6,20 +6,20 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 /**
  * Created by Dmitriy on 01.11.2015.
  */
-public class ImsTypeDto {
+public class SkillTypeDto {
     private Integer id;
-    private String typeName;
+    private String skillName;
 
-    public ImsTypeDto() {
+    public SkillTypeDto() {
     }
 
-    public ImsTypeDto(Integer id) {
+    public SkillTypeDto(Integer id) {
         this.id = id;
     }
 
-    public ImsTypeDto(Integer id, String typeName) {
+    public SkillTypeDto(Integer id, String skillName) {
         this.id = id;
-        this.typeName = typeName;
+        this.skillName = skillName;
     }
 
     public Integer getId() {
@@ -30,25 +30,25 @@ public class ImsTypeDto {
         this.id = id;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getSkillName() {
+        return skillName;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
 
-        if (!(o instanceof ImsTypeDto)) return false;
+        if (!(o instanceof SkillTypeDto)) return false;
 
-        ImsTypeDto that = (ImsTypeDto) o;
+        SkillTypeDto that = (SkillTypeDto) o;
 
         return new EqualsBuilder()
                 .append(id, that.id)
-                .append(typeName, that.typeName)
+                .append(skillName, that.skillName)
                 .isEquals();
     }
 
@@ -56,15 +56,15 @@ public class ImsTypeDto {
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
                 .append(id)
-                .append(typeName)
+                .append(skillName)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
-        return "ImsTypeDto{" +
+        return "SkillTypeDto{" +
                 "id=" + id +
-                ", typeName='" + typeName + '\'' +
+                ", skillName='" + skillName + '\'' +
                 '}';
     }
 }

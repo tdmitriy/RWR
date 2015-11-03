@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * Created by Dmitriy on 01.11.2015.
  */
 public class SeekerEmailDto {
+    private Integer id;
     private String email;
     private SeekerDto emailOwner;
 
@@ -17,6 +18,14 @@ public class SeekerEmailDto {
     public SeekerEmailDto(String email, SeekerDto emailOwner) {
         this.email = email;
         this.emailOwner = emailOwner;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -44,6 +53,7 @@ public class SeekerEmailDto {
         SeekerEmailDto that = (SeekerEmailDto) o;
 
         return new EqualsBuilder()
+                .append(id, that.id)
                 .append(email, that.email)
                 .append(emailOwner, that.emailOwner)
                 .isEquals();
@@ -52,6 +62,7 @@ public class SeekerEmailDto {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
+                .append(id)
                 .append(email)
                 .append(emailOwner)
                 .toHashCode();
@@ -60,7 +71,8 @@ public class SeekerEmailDto {
     @Override
     public String toString() {
         return "SeekerEmailDto{" +
-                "email='" + email + '\'' +
+                "id=" + id +
+                ", email='" + email + '\'' +
                 ", emailOwner=" + emailOwner +
                 '}';
     }

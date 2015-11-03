@@ -1,5 +1,8 @@
 package com.rwr.service;
 
+import com.rwr.dto.ims.ImsTypeDto;
+import com.rwr.dto.seeker.SeekerDto;
+import com.rwr.dto.skills.SkillTypeDto;
 import com.rwr.repository.IImsRepository;
 import com.rwr.repository.ISeekerRepository;
 import com.rwr.repository.ISkillsRepository;
@@ -13,8 +16,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Query;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by Dmitriy on 02.11.2015.
@@ -22,7 +27,6 @@ import java.util.Collection;
 
 @Service
 public class RwrManagementServiceImpl implements IRwrManagementService {
-
     @Autowired
     private IImsRepository imsRepository;
 
@@ -32,12 +36,11 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     @Autowired
     private ISeekerRepository seekerRepository;
 
-
     @Override
     @Transactional(readOnly = true, rollbackFor = RwrDaoException.class)
-    public Collection<SkillType> getAllTypesOfSkills() {
+    public Set<SkillType> getAllTypesOfSkills() {
         try {
-            return skillsRepository.findAll();
+            return new HashSet<>(skillsRepository.findAll());
         } catch (Exception ex) {
             throw new RwrDaoException(ex);
         }
@@ -45,9 +48,9 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
 
     @Override
     @Transactional(readOnly = true, rollbackFor = RwrDaoException.class)
-    public Collection<ImsType> getAllTypesOfIms() {
+    public Set<ImsType> getAllTypesOfIms() {
         try {
-            return imsRepository.findAll();
+            return new HashSet<>(imsRepository.findAll());
         } catch (Exception ex) {
             throw new RwrDaoException(ex);
         }
@@ -55,7 +58,7 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
 
     @Override
     @Transactional(readOnly = true, rollbackFor = RwrDaoException.class)
-    public Collection<Seeker> getAll() {
+    public List<Seeker> getAll() {
         try {
             return seekerRepository.findAll();
         } catch (Exception ex) {
@@ -65,19 +68,9 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
 
     @Override
     @Transactional(readOnly = true, rollbackFor = RwrDaoException.class)
-    public Page<Seeker> getAllPages(Pageable pageable) {
+    public Page<Seeker> getAllSeekerPageable(Pageable pageable) {
         try {
-            return seekerRepository.findAllPages(pageable);
-        } catch (Exception ex) {
-            throw new RwrDaoException(ex);
-        }
-    }
-
-    @Override
-    @Transactional(readOnly = true, rollbackFor = RwrDaoException.class)
-    public Long getSeekerCount() {
-        try {
-            return seekerRepository.getSeekerCount();
+            return seekerRepository.getSeekerPageable(pageable);
         } catch (Exception ex) {
             throw new RwrDaoException(ex);
         }

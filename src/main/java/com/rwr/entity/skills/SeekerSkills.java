@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "SEEKER_SKILLS")
 public class SeekerSkills extends BaseEntity {
-
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "skill_type_id")
     private SkillType skillType;
@@ -34,7 +33,8 @@ public class SeekerSkills extends BaseEntity {
         this.skillRating = skillRating;
     }
 
-    public SeekerSkills(SkillType skillType, Integer skillRating, Seeker skillsOwner) {
+    public SeekerSkills(Integer id, SkillType skillType, Integer skillRating, Seeker skillsOwner) {
+        super.setId(id);
         this.skillType = skillType;
         this.skillRating = skillRating;
         this.skillsOwner = skillsOwner;

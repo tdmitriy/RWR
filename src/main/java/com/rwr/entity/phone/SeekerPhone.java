@@ -34,6 +34,12 @@ public class SeekerPhone extends BaseEntity {
         this.phoneOwner = phoneOwner;
     }
 
+    public SeekerPhone(Integer id, String phoneNumber, Seeker phoneOwner) {
+        super.setId(id);
+        this.phoneNumber = phoneNumber;
+        this.phoneOwner = phoneOwner;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }

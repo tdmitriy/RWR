@@ -1,5 +1,8 @@
 package com.rwr.service;
 
+import com.rwr.dto.ims.ImsTypeDto;
+import com.rwr.dto.seeker.SeekerDto;
+import com.rwr.dto.skills.SkillTypeDto;
 import com.rwr.entity.ims.ImsType;
 import com.rwr.entity.seeker.Seeker;
 import com.rwr.entity.skills.SkillType;
@@ -7,20 +10,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Dmitriy on 02.11.2015.
  */
 public interface IRwrManagementService {
-    Collection<SkillType> getAllTypesOfSkills();
+    Set<SkillType> getAllTypesOfSkills();
 
-    Collection<ImsType> getAllTypesOfIms();
+    Set<ImsType> getAllTypesOfIms();
 
-    Collection<Seeker> getAll();
+    List<Seeker> getAll();
 
-    Page<Seeker> getAllPages(Pageable pageable);
-
-    Long getSeekerCount();
+    Page<Seeker> getAllSeekerPageable(Pageable pageable);
 
     Seeker getById(Integer id);
 

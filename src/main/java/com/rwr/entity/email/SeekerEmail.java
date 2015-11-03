@@ -25,6 +25,17 @@ public class SeekerEmail extends BaseEntity {
     public SeekerEmail() {
     }
 
+    public SeekerEmail(String email, Seeker emailOwner) {
+        this.email = email;
+        this.emailOwner = emailOwner;
+    }
+
+    public SeekerEmail(Integer id, String email, Seeker emailOwner) {
+        super.setId(id);
+        this.email = email;
+        this.emailOwner = emailOwner;
+    }
+
     public SeekerEmail(String email) {
         this.email = email;
     }
@@ -43,13 +54,5 @@ public class SeekerEmail extends BaseEntity {
 
     public void setEmailOwner(Seeker emailOwner) {
         this.emailOwner = emailOwner;
-    }
-
-    @Override
-    public String toString() {
-        return "SeekerEmail{" +
-                "email='" + email + '\'' +
-                ", emailOwner=" + emailOwner +
-                '}';
     }
 }

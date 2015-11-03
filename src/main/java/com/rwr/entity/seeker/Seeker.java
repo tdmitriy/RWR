@@ -34,11 +34,23 @@ public class Seeker extends BaseEntity {
     @Embedded
     private SeekerContacts contacts;
 
-    @OneToMany(mappedBy = "skillsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference
+    @OrderBy("skillRating DESC")
+    @OneToMany(mappedBy = "skillsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<SeekerSkills> seekerSkills;
 
     public Seeker() {
+    }
+
+    public Seeker(Integer id, String firstName, String lastName, Date dateOfAddition, Date dateOfInterview,
+                  SeekerContacts contacts, Set<SeekerSkills> seekerSkills) {
+        super.setId(id);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfAddition = dateOfAddition;
+        this.dateOfInterview = dateOfInterview;
+        this.contacts = contacts;
+        this.seekerSkills = seekerSkills;
     }
 
     public String getFirstName() {

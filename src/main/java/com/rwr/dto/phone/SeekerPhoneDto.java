@@ -8,6 +8,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  * Created by Dmitriy on 01.11.2015.
  */
 public class SeekerPhoneDto {
+    private Integer id;
     private String phoneNumber;
     private SeekerDto phoneOwner;
 
@@ -21,6 +22,20 @@ public class SeekerPhoneDto {
     public SeekerPhoneDto(String phoneNumber, SeekerDto phoneOwner) {
         this.phoneNumber = phoneNumber;
         this.phoneOwner = phoneOwner;
+    }
+
+    public SeekerPhoneDto(Integer id, String phoneNumber, SeekerDto phoneOwner) {
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+        this.phoneOwner = phoneOwner;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPhoneNumber() {
@@ -48,6 +63,7 @@ public class SeekerPhoneDto {
         SeekerPhoneDto that = (SeekerPhoneDto) o;
 
         return new EqualsBuilder()
+                .append(id, that.id)
                 .append(phoneNumber, that.phoneNumber)
                 .append(phoneOwner, that.phoneOwner)
                 .isEquals();
@@ -56,6 +72,7 @@ public class SeekerPhoneDto {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
+                .append(id)
                 .append(phoneNumber)
                 .append(phoneOwner)
                 .toHashCode();
@@ -64,7 +81,8 @@ public class SeekerPhoneDto {
     @Override
     public String toString() {
         return "SeekerPhoneDto{" +
-                "phoneNumber='" + phoneNumber + '\'' +
+                "id=" + id +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", phoneOwner=" + phoneOwner +
                 '}';
     }

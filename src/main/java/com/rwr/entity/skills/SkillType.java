@@ -13,9 +13,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "SKILL_TYPE")
 public class SkillType extends BaseEntity {
-
     @Column(name = "type")
-    private String skillType;
+    private String skillName;
 
     public SkillType() {
     }
@@ -24,20 +23,16 @@ public class SkillType extends BaseEntity {
         super.setId(id);
     }
 
-    public SkillType(String skillType) {
-        this.skillType = skillType;
-    }
-
-    public SkillType(Integer id, String skillType) {
+    public SkillType(Integer id, String skillName) {
         super.setId(id);
-        this.skillType = skillType;
+        this.skillName = skillName;
     }
 
-    public String getSkillType() {
-        return skillType;
+    public String getSkillName() {
+        return skillName;
     }
 
-    public void setSkillType(String skillType) {
-        this.skillType = skillType;
+    public void setSkillName(String skillName) {
+        this.skillName = skillName;
     }
 }

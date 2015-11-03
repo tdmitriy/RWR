@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "IMS_TYPE")
 public class ImsType extends BaseEntity {
-
     @Column(name = "type")
     private String typeName;
 
