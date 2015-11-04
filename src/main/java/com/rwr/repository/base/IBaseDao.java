@@ -17,5 +17,5 @@ public interface IBaseDao<E extends BaseEntity> {
 
     void delete(E entity);
 
-    void deleteById(Integer id);
+    void delete(Integer id);
 }

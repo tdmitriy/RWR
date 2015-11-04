@@ -7,5 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Created by Dmitriy on 01.11.2015.
  */
-public interface ISkillsRepository extends JpaRepository<SkillType, Integer> {
+public interface ISkillsRepository extends IBaseDao<SkillType> {
+    SkillType getSkillByName(String name);
 }

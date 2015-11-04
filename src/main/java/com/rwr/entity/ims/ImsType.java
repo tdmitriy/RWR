@@ -2,9 +2,7 @@ package com.rwr.entity.ims;
 
 import com.rwr.entity.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by haswell on 30.10.15.

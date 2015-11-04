@@ -17,11 +17,11 @@ public class SeekerIms extends BaseEntity {
     @Column(name = "ims_login")
     private String imsLogin;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ims_type_id")
     private ImsType imsType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "seeker_id")
     @JsonBackReference
     private Seeker imsOwner;

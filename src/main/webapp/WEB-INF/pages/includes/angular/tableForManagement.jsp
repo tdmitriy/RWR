@@ -1,6 +1,7 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/pages/includes/tags.jsp" %>
 
-<div class="col-lg-8">
+<div class="col-lg-9 col-centered">
     <div class="panel panel-default">
         <div class="panel-heading clearfix">
             <h3 class="panel-title pull-left"><i class="fa fa-table fa-fw"></i> Table</h3>
@@ -14,10 +15,10 @@
 
             <div class="btn-group pull-right">
                 <div class="btn-group-xs">
-                    <button class="btn btn-danger btn-xs ng-fade"
-                            title="Delete all">
-                        <i class="fa fa-trash-o fa-fw"></i>
-                        Delete all
+                    <button class="btn btn-success btn-xs ng-fade"
+                            title="Add new seeker">
+                        <i class="fa fa-plus fa-fw"></i>
+                        Add new seeker
                     </button>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/pages/includes/tags.jsp" %>
 
 <%-- Libs/dependences --%>
@@ -37,7 +38,6 @@
 
 <body>
 <div id="wrapper">
-
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <!-- Brand and toggle get grouped for better mobile display -->

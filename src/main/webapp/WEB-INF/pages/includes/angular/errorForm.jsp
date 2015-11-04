@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/pages/includes/tags.jsp" %>
 
 <div class="alert alert-danger alert-dismissible ng-fade" role="alert">

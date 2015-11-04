@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/pages/includes/tags.jsp" %>
 
 <div class="col-lg-4">
@@ -53,12 +54,9 @@
                         <div class=" input-group">
                             <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
                             <input name="phone1" class="form-control"
-                                   placeholder="Phone">
+                                   placeholder="Add new phone">
                             <span class="input-group-addon">
-                                <button type="button" class="btn btn-danger btn-xs btn-small"
-                                        title="Delete">
-                                    <i class="fa fa-minus fa-fw"></i>
-                                </button>
+                                <a href class="btn-add-contacts"><i class="fa fa-plus fa-fw"></i></a>
                             </span>
                         </div>
                         <%-- validation messages for Phones --%>
@@ -68,12 +66,9 @@
                         <div class=" input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
                             <input name="email1" class="form-control"
-                                   placeholder="Email">
+                                   placeholder="Add new email">
                             <span class="input-group-addon">
-                                <button type="button" class="btn btn-danger btn-xs btn-small"
-                                        title="Delete">
-                                    <i class="fa fa-minus fa-fw"></i>
-                                </button>
+                                <a href class="btn-add-contacts"><i class="fa fa-plus fa-fw"></i></a>
                             </span>
                         </div>
                         <%-- validation messages for Emails --%>
@@ -83,12 +78,9 @@
                         <div class=" input-group">
                             <span class="input-group-addon"><i class="fa fa-comments-o fa-fw"></i></span>
                             <input name="ims1" class="form-control"
-                                   placeholder="Ims login">
+                                   placeholder="Add new IMS login">
                             <span class="input-group-addon">
-                                <button type="button" class="btn btn-danger btn-xs btn-small"
-                                        title="Delete">
-                                    <i class="fa fa-minus fa-fw"></i>
-                                </button>
+                                <a href class="btn-add-contacts"><i class="fa fa-plus fa-fw"></i></a>
                             </span>
                         </div>
                         <%-- validation messages for Ims --%>

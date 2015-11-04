@@ -17,7 +17,7 @@ public class SeekerEmail extends BaseEntity {
     @Column(name = "email")
     private String email;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "seeker_id")
     @JsonBackReference
     private Seeker emailOwner;

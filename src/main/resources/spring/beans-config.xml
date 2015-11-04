@@ -4,5 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="seekerRepository" class="com.rwr.repository.impl.SeekerRepositoryImpl"/>
+    <bean id="imsRepository" class="com.rwr.repository.impl.ImsRepositoryImpl"/>
+    <bean id="skillsRepository" class="com.rwr.repository.impl.SkillsRepositoryImpl"/>
+
     <bean id="rwrService" class="com.rwr.service.RwrManagementServiceImpl"/>
 </beans>

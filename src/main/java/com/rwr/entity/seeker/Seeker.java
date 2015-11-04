@@ -3,7 +3,7 @@ package com.rwr.entity.seeker;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rwr.entity.BaseEntity;
 import com.rwr.entity.contacts.SeekerContacts;
-import com.rwr.entity.skills.SeekerSkills;
+import com.rwr.entity.skills.SeekerSkill;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -37,13 +37,13 @@ public class Seeker extends BaseEntity {
     @JsonManagedReference
     @OrderBy("skillRating DESC")
     @OneToMany(mappedBy = "skillsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<SeekerSkills> seekerSkills;
+    private Set<SeekerSkill> seekerSkills;
 
     public Seeker() {
     }
 
     public Seeker(Integer id, String firstName, String lastName, Date dateOfAddition, Date dateOfInterview,
-                  SeekerContacts contacts, Set<SeekerSkills> seekerSkills) {
+                  SeekerContacts contacts, Set<SeekerSkill> seekerSkills) {
         super.setId(id);
         this.firstName = firstName;
         this.lastName = lastName;
@@ -85,11 +85,11 @@ public class Seeker extends BaseEntity {
         this.dateOfInterview = dateOfInterview;
     }
 
-    public Set<SeekerSkills> getSeekerSkills() {
+    public Set<SeekerSkill> getSeekerSkills() {
         return seekerSkills;
     }
 
-    public void setSeekerSkills(Set<SeekerSkills> seekerSkills) {
+    public void setSeekerSkills(Set<SeekerSkill> seekerSkills) {
         this.seekerSkills = seekerSkills;
     }
 

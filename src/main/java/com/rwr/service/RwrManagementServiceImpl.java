@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,7 +38,7 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     @Transactional(readOnly = true, rollbackFor = RwrDaoException.class)
     public Set<SkillType> getAllTypesOfSkills() {
         try {
-            return new HashSet<>(skillsRepository.findAll());
+            return new HashSet<>(skillsRepository.getAll());
         } catch (Exception ex) {
             throw new RwrDaoException(ex);
         }
@@ -47,7 +48,7 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     @Transactional(readOnly = true, rollbackFor = RwrDaoException.class)
     public Set<ImsType> getAllTypesOfIms() {
         try {
-            return new HashSet<>(imsRepository.findAll());
+            return new HashSet<>(imsRepository.getAll());
         } catch (Exception ex) {
             throw new RwrDaoException(ex);
         }
@@ -57,7 +58,7 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     @Transactional(readOnly = true, rollbackFor = RwrDaoException.class)
     public List<Seeker> getAll() {
         try {
-            return seekerRepository.findAll();
+            return new ArrayList<>(seekerRepository.getAll());
         } catch (Exception ex) {
             throw new RwrDaoException(ex);
         }
@@ -67,7 +68,8 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     @Transactional(readOnly = true, rollbackFor = RwrDaoException.class)
     public Page<Seeker> getAllSeekerPageable(Pageable pageable) {
         try {
-            return seekerRepository.getSeekerPageable(pageable);
+            //TODO
+            return null;//seekerRepository.getSeekerPageable(pageable);
         } catch (Exception ex) {
             throw new RwrDaoException(ex);
         }
@@ -77,7 +79,7 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     @Transactional(rollbackFor = RwrDaoException.class)
     public Seeker getById(Integer id) {
         try {
-            return seekerRepository.findOne(id);
+            return seekerRepository.getById(id);
         } catch (Exception ex) {
             throw new RwrDaoException(ex);
         }
@@ -87,7 +89,7 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     @Transactional(rollbackFor = RwrDaoException.class)
     public void saveOrUpdate(Seeker entity) {
         try {
-            seekerRepository.save(entity);
+            seekerRepository.saveOrUpdate(entity);
         } catch (Exception ex) {
             throw new RwrDaoException(ex);
         }

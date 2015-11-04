@@ -2,9 +2,7 @@ package com.rwr.entity.skills;
 
 import com.rwr.entity.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by haswell on 30.10.15.
@@ -17,6 +15,10 @@ public class SkillType extends BaseEntity {
     private String skillName;
 
     public SkillType() {
+    }
+
+    public SkillType(String skillName) {
+        this.skillName = skillName;
     }
 
     public SkillType(Integer id) {
@@ -35,4 +37,5 @@ public class SkillType extends BaseEntity {
     public void setSkillName(String skillName) {
         this.skillName = skillName;
     }
+
 }

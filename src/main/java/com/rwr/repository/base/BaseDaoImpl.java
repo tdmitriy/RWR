@@ -46,7 +46,7 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements IBaseDao<E> {
     }
 
     @Override
-    public void deleteById(final Integer id) {
+    public void delete(final Integer id) {
         E entity = this.getById(id);
         this.delete(entity);
     }

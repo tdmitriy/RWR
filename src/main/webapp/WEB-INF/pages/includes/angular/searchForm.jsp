@@ -1,3 +1,4 @@
+<%@ page pageEncoding="UTF-8" contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="/WEB-INF/pages/includes/tags.jsp" %>
 
 <fieldset>

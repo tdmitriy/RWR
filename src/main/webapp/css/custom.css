@@ -24,6 +24,7 @@ body {
     line-height: normal;
 }
 
+
 @media (min-width: 768px) {
     #wrapper {
         padding-left: 0;
@@ -120,14 +121,27 @@ body {
     border-bottom: 1px solid #eee;
 }
 
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
 /* disable button outline when clicked */
 .btn:focus {
     outline: none;
 }
 
-/* btn small for contacts deletion */
-.btn-small {
-    font-size: 10px;
+/* btn for contacts + */
+.btn-add-contacts {
+    color: #4cae4c;
 }
 
 /* Fix margin */

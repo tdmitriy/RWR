@@ -17,7 +17,7 @@ public class SeekerPhone extends BaseEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "seeker_id")
     @JsonBackReference
     private Seeker phoneOwner;
