@@ -125,6 +125,11 @@ body {
     outline: none;
 }
 
+/* btn small for contacts deletion */
+.btn-small {
+    font-size: 10px;
+}
+
 /* Fix margin */
 .btn-block + .btn-block {
     margin-top: 0;
@@ -132,8 +137,6 @@ body {
 
 /* Table */
 .table-responsive {
-    min-height: 200px;
-    max-height: 400px;
     overflow: auto;
 }
 

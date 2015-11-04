@@ -38,9 +38,9 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>First/Last</th>
+                        <th>First name</th>
+                        <th>Last name</th>
                         <th>Date of addition</th>
-                        <th>Date of interview</th>
                         <th>Top skill#1</th>
                         <th>Top skill#2</th>
                         <th>Top skill#3</th>
@@ -49,8 +49,8 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>Vasya Petarda</td>
-                        <td>2015-01-01</td>
+                        <td>Vasya</td>
+                        <td>Petarda</td>
                         <td>2015-01-01</td>
                         <td>Java(8)</td>
                         <td>C#(5)</td>
@@ -67,8 +67,8 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Vasya Petarda</td>
-                        <td>2015-01-01</td>
+                        <td>Vasya</td>
+                        <td>Petarda</td>
                         <td>2015-01-01</td>
                         <td>Java(8)</td>
                         <td>C#(5)</td>

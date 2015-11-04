@@ -27,10 +27,15 @@
                         <%-- validation messages for lastName --%>
                     </div>
                     <div class="form-group">
+                        <div class="group-menu-divider">Skills</div>
+
+                        <%-- validation messages --%>
+                    </div>
+                    <div class="form-group">
                         <div class="group-menu-divider">Date of addition / interview</div>
                         <div class=" input-group">
                             <span class="input-group-addon"><i class="fa fa-calendar-o fa-fw"></i></span>
-                            <input type="number" name="dateOfAddition" class="form-control"
+                            <input name="dateOfAddition" class="form-control"
                                    placeholder="Date of addition">
                         </div>
                         <%-- validation messages for dateOA --%>
@@ -38,7 +43,7 @@
                     <div class="form-group">
                         <div class=" input-group">
                             <span class="input-group-addon"><i class="fa fa-calendar-o fa-fw"></i></span>
-                            <input type="number" name="dateOfInterview" class="form-control"
+                            <input name="dateOfInterview" class="form-control"
                                    placeholder="Date of interview">
                         </div>
                         <%-- validation messages for dateOI --%>
@@ -47,11 +52,48 @@
                         <div class="group-menu-divider">Phones</div>
                         <div class=" input-group">
                             <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
-                            <input type="number" name="phone1" class="form-control"
+                            <input name="phone1" class="form-control"
                                    placeholder="Phone">
+                            <span class="input-group-addon">
+                                <button type="button" class="btn btn-danger btn-xs btn-small"
+                                        title="Delete">
+                                    <i class="fa fa-minus fa-fw"></i>
+                                </button>
+                            </span>
                         </div>
                         <%-- validation messages for Phones --%>
                     </div>
+                    <div class="form-group">
+                        <div class="group-menu-divider">Emails</div>
+                        <div class=" input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+                            <input name="email1" class="form-control"
+                                   placeholder="Email">
+                            <span class="input-group-addon">
+                                <button type="button" class="btn btn-danger btn-xs btn-small"
+                                        title="Delete">
+                                    <i class="fa fa-minus fa-fw"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <%-- validation messages for Emails --%>
+                    </div>
+                    <div class="form-group">
+                        <div class="group-menu-divider">Instant message systems (optional)</div>
+                        <div class=" input-group">
+                            <span class="input-group-addon"><i class="fa fa-comments-o fa-fw"></i></span>
+                            <input name="ims1" class="form-control"
+                                   placeholder="Ims login">
+                            <span class="input-group-addon">
+                                <button type="button" class="btn btn-danger btn-xs btn-small"
+                                        title="Delete">
+                                    <i class="fa fa-minus fa-fw"></i>
+                                </button>
+                            </span>
+                        </div>
+                        <%-- validation messages for Ims --%>
+                    </div>
+
 
                     <div class="row">
                         <div class="col-lg-6">
