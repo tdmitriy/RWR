@@ -100,4 +100,4 @@
     </div>
     <!-- /.panel panel-default -->
 </div>
-<!-- /.col-lg-8 -->
+<!-- /.col-lg-9 -->

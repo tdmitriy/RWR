@@ -47,7 +47,7 @@
     </nav>
 
     <div id="page-wrapper">
-        <%@include file="/WEB-INF/pages/view/seekerManagementView.jsp" %>
+        <%@include file="/WEB-INF/pages/view/seekerSaveManagementView.jsp" %>
     </div>
     <!-- /#page-wrapper -->
 

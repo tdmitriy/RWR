@@ -144,6 +144,12 @@ body {
     color: #4cae4c;
 }
 
+.dropdown-no-border-radius {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
 /* Fix margin */
 .btn-block + .btn-block {
     margin-top: 0;

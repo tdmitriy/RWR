@@ -2,11 +2,13 @@ package com.rwr.repository.impl;
 
 import com.rwr.entity.seeker.Seeker;
 import com.rwr.entity.skills.SeekerSkill;
+import com.rwr.exception.RwrResourceNotFoundException;
 import com.rwr.repository.ISeekerRepository;
 import com.rwr.repository.base.BaseRepositoryImpl;
 import com.rwr.utils.IPageWrapper;
 import com.rwr.utils.Pageable;
-import com.rwr.utils.Pageable.*;
+import com.rwr.utils.Pageable.OrderingType;
+import com.rwr.utils.Pageable.SortingType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,25 +26,22 @@ public class SeekerRepositoryImpl extends BaseRepositoryImpl<Seeker> implements 
     @SuppressWarnings({"JpaQlInspection", "unchecked"})
     @Override
     public IPageWrapper<Seeker> getSeekerPageable(Pageable pageable) {
-        String sort;
         SortingType sortingType = pageable.getSortingType();
         OrderingType orderingType = pageable.getOrderingType();
 
         if (sortingType == null || orderingType == null) {
             orderingQueryLogic(pageable);
         } else {
-            sort = pageable.getSortingType().toString();
-            orderingQueryLogic(pageable, sort);
+            orderingQueryLogic(pageable, sortingType.toString());
         }
         return pageWrapper;
     }
 
     @SuppressWarnings("JpaQlInspection")
     @Override
-    public Integer getSeekerRowCount() {
-        Query query = getEntityManager().createQuery("SELECT COUNT(s.id) FROM com.rwr.entity.seeker.Seeker s");
-        int count = query.getFirstResult();
-        return query.getFirstResult();
+    public Long getSeekerRowCount() {
+        Query query = getEntityManager().createQuery("SELECT COUNT(s.id) FROM Seeker s");
+        return (Long) query.getSingleResult();
     }
 
     @Override
@@ -82,9 +81,12 @@ public class SeekerRepositoryImpl extends BaseRepositoryImpl<Seeker> implements 
     @SuppressWarnings("unchecked")
     private void initPageWrapperLogic(Query query, Pageable pageable) {
         int currentPage = pageable.getCurrentPage() - 1;
-        int rowsCount = getSeekerRowCount();
+        int rowsCount = getSeekerRowCount().intValue();
         int maxRecordsPerPage = pageable.getMaxRecordsPerPage();
-        int totalPages = (rowsCount / maxRecordsPerPage) + 1;
+        int totalPages = (int) Math.ceil((double) rowsCount / maxRecordsPerPage);
+
+        if (currentPage > totalPages)
+            throw new RwrResourceNotFoundException("Resource not found.");
 
         query.setFirstResult(currentPage * maxRecordsPerPage);
         query.setMaxResults(maxRecordsPerPage);

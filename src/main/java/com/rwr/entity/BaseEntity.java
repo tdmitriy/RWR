@@ -3,7 +3,10 @@ package com.rwr.entity;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 /**
@@ -18,9 +21,6 @@ public abstract class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    /*@Version
-    private Long version;*/
-
     public Integer getId() {
         return id;
     }
@@ -28,14 +28,6 @@ public abstract class BaseEntity implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    /*public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }*/
 
     @Override
     public boolean equals(Object o) {

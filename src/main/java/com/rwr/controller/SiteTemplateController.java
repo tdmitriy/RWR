@@ -3,7 +3,6 @@ package com.rwr.controller;
 import com.rwr.entity.seeker.Seeker;
 import com.rwr.service.IRwrManagementService;
 import com.rwr.utils.IPageWrapper;
-import com.rwr.utils.PageWrapperImpl;
 import com.rwr.utils.Pageable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * Created by haswell on 29.10.15.
@@ -28,16 +28,14 @@ public class SiteTemplateController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String showIndex() {
-        return INDEX_PAGE;
+        return SITE_TEMPLATE_PAGE;
     }
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public String showSiteTemplate() {
-        Pageable pageable = new Pageable(1, 5, Pageable.SortingType.ASC, Pageable.OrderingType.ORDER_BY_FIRST_NAME);
-        //IPageWrapper<Seeker> pages = rwrService.getAllSeekerPageable(pageable);
-        int count = rwrService.getSeekerRowCount();
-
-        return INDEX_PAGE;
+    @RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public IPageWrapper<Seeker> showSeekers() {
+        Pageable pageable = new Pageable(1, 5, Pageable.SortingType.ASC, Pageable.OrderingType.ORDER_BY_DATE_OF_ADDITION);
+        return rwrService.getAllSeekerPageable(pageable);
     }
 
     @RequestMapping(value = "/test1", method = RequestMethod.GET)

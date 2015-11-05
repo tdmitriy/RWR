@@ -3,7 +3,11 @@ package com.rwr.entity.contacts;
 import com.rwr.entity.email.SeekerEmail;
 import com.rwr.entity.ims.SeekerIms;
 import com.rwr.entity.phone.SeekerPhone;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
