@@ -11,7 +11,7 @@ import java.util.Collection;
  * Created by haswell on 30.10.15.
  */
 
-public abstract class BaseDaoImpl<E extends BaseEntity> implements IBaseDao<E> {
+public abstract class BaseRepositoryImpl<E extends BaseEntity> implements IBaseRepository<E> {
 
     private final Class<E> clazz;
 
@@ -19,8 +19,8 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements IBaseDao<E> {
     private EntityManager entityManager;
 
     @SuppressWarnings("unchecked")
-    public BaseDaoImpl() {
-        this.clazz = (Class<E>) GenericTypeResolver.resolveTypeArgument(getClass(), BaseDaoImpl.class);
+    public BaseRepositoryImpl() {
+        this.clazz = (Class<E>) GenericTypeResolver.resolveTypeArgument(getClass(), BaseRepositoryImpl.class);
     }
 
     @Override
@@ -36,18 +36,22 @@ public abstract class BaseDaoImpl<E extends BaseEntity> implements IBaseDao<E> {
 
     @Override
     public void saveOrUpdate(final E entity) {
-        entityManager.merge(entity);
+        if(entity.getId() == null) {
+            entityManager.persist(entity);
+        } else {
+            entityManager.merge(entity);
+        }
     }
 
     //works only on entities which are managed in the current transaction/context
     @Override
     public void delete(final E entity) {
-        entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+        entityManager.remove(entity);
     }
 
     @Override
     public void delete(final Integer id) {
-        E entity = this.getById(id);
+        E entity = entityManager.find(this.clazz, id);
         this.delete(entity);
     }
 

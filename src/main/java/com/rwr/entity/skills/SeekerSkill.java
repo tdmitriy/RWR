@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "SEEKER_SKILLS")
 public class SeekerSkill extends BaseEntity {
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "skill_type_id")
     private SkillType skillType;
 

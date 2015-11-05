@@ -8,7 +8,7 @@ import java.util.Collection;
  * Created by haswell on 30.10.15.
  */
 
-public interface IBaseDao<E extends BaseEntity> {
+public interface IBaseRepository<E extends BaseEntity> {
     E getById(Integer id);
 
     Collection<E> getAll();

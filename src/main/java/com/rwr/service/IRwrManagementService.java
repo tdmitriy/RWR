@@ -3,9 +3,9 @@ package com.rwr.service;
 import com.rwr.entity.ims.ImsType;
 import com.rwr.entity.seeker.Seeker;
 import com.rwr.entity.skills.SkillType;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
+import com.rwr.utils.IPageWrapper;
+import com.rwr.utils.PageWrapperImpl;
+import com.rwr.utils.Pageable;
 import java.util.List;
 import java.util.Set;
 
@@ -17,15 +17,17 @@ public interface IRwrManagementService {
 
     Set<ImsType> getAllTypesOfIms();
 
-    List<Seeker> getAll();
+    List<Seeker> getAllSeekers();
 
-    Page<Seeker> getAllSeekerPageable(Pageable pageable);
+    IPageWrapper<Seeker> getAllSeekerPageable(Pageable pageable);
 
-    Seeker getById(Integer id);
+    Seeker getSeekerById(Integer id);
 
-    void saveOrUpdate(Seeker entity);
+    void saveOrUpdateSeeker(Seeker entity);
 
     void delete(Seeker entity);
 
-    void deleteById(Integer id);
+    void delete(Integer id);
+
+    Integer getSeekerRowCount();
 }

@@ -15,5 +15,5 @@
     <mvc:annotation-driven/>
 
     <context:component-scan base-package="com.rwr.controller"/>
-    <jpa:repositories base-package="com.rwr.repository"/>
+    <context:component-scan base-package="com.rwr.repository"/>
 </beans>

@@ -1,10 +1,10 @@
 package com.rwr.controller;
 
 import com.rwr.entity.seeker.Seeker;
-import com.rwr.entity.skills.SeekerSkill;
-import com.rwr.entity.skills.SkillType;
-import com.rwr.repository.ISkillsRepository;
 import com.rwr.service.IRwrManagementService;
+import com.rwr.utils.IPageWrapper;
+import com.rwr.utils.PageWrapperImpl;
+import com.rwr.utils.Pageable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +33,15 @@ public class SiteTemplateController {
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String showSiteTemplate() {
-        /*Seeker seeker = rwrService.getById(1);
-        seeker.getSeekerSkills().add(new SeekerSkill(new SkillType("TestSkill"), 3));
-        rwrService.saveOrUpdate(seeker);*/
-        rwrService.deleteById(1);
+        Pageable pageable = new Pageable(1, 5, Pageable.SortingType.ASC, Pageable.OrderingType.ORDER_BY_FIRST_NAME);
+        //IPageWrapper<Seeker> pages = rwrService.getAllSeekerPageable(pageable);
+        int count = rwrService.getSeekerRowCount();
+
+        return INDEX_PAGE;
+    }
+
+    @RequestMapping(value = "/test1", method = RequestMethod.GET)
+    public String showTest2() {
         return INDEX_PAGE;
     }
 }

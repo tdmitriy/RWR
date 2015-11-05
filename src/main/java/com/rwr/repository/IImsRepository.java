@@ -1,12 +1,11 @@
 package com.rwr.repository;
 
 import com.rwr.entity.ims.ImsType;
-import com.rwr.repository.base.IBaseDao;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.rwr.repository.base.IBaseRepository;
 
 /**
  * Created by Dmitriy on 01.11.2015.
  */
 
-public interface IImsRepository extends IBaseDao<ImsType> {
+public interface IImsRepository extends IBaseRepository<ImsType> {
 }
