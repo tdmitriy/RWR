@@ -51,7 +51,9 @@ public abstract class BaseRepositoryImpl<E extends BaseEntity> implements IBaseR
     @Override
     public void delete(final Integer id) {
         E entity = entityManager.find(this.clazz, id);
-        this.delete(entity);
+        if (entity != null)
+            this.delete(entity);
+        else throw new NullPointerException("Deletion entity is null");
     }
 
     protected EntityManager getEntityManager() {

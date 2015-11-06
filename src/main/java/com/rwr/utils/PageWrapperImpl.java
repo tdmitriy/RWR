@@ -2,14 +2,11 @@ package com.rwr.utils;
 
 import java.util.Collection;
 
-/**
- * Created by haswell on 11/5/15.
- */
 public class PageWrapperImpl<T> implements IPageWrapper<T> {
     private int rowsCount;
     private int maxRecordsPerPage;
     private int totalPages;
-    Collection<T> collection;
+    private Collection<T> collection;
 
     public PageWrapperImpl() {
     }
@@ -19,7 +16,6 @@ public class PageWrapperImpl<T> implements IPageWrapper<T> {
         this.maxRecordsPerPage = maxRecordsPerPage;
         this.collection = collection;
     }
-
 
     @Override
     public int getRowsCount() {
@@ -60,6 +56,4 @@ public class PageWrapperImpl<T> implements IPageWrapper<T> {
     public void setCollection(Collection<T> collection) {
         this.collection = collection;
     }
-
-
 }

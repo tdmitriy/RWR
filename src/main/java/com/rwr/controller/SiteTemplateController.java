@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-/**
- * Created by haswell on 29.10.15.
- */
-
 @Controller
 public class SiteTemplateController {
     private static final Logger log = LoggerFactory.getLogger(SiteTemplateController.class);
@@ -35,7 +31,7 @@ public class SiteTemplateController {
     @ResponseBody
     public IPageWrapper<Seeker> showSeekers() {
         Pageable pageable = new Pageable(1, 5, Pageable.SortingType.ASC, Pageable.OrderingType.ORDER_BY_DATE_OF_ADDITION);
-        return rwrService.getAllSeekerPageable(pageable);
+        return rwrService.getSeekerPageable(pageable);
     }
 
     @RequestMapping(value = "/test1", method = RequestMethod.GET)

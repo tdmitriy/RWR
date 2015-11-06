@@ -1,10 +1,8 @@
 package com.rwr.exception;
 
-/**
- * Created by Dmitriy on 01.11.2015.
- */
 public class RwrDaoException extends RwrException {
     public RwrDaoException() {
+        super();
     }
 
     public RwrDaoException(String message) {

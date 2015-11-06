@@ -14,9 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 
-/**
- * Created by Dmitriy on 04.11.2015.
- */
 @Repository
 public class SeekerRepositoryImpl extends BaseRepositoryImpl<Seeker> implements ISeekerRepository {
 
@@ -47,7 +44,8 @@ public class SeekerRepositoryImpl extends BaseRepositoryImpl<Seeker> implements 
     @Override
     public void saveOrUpdate(Seeker entity) {
         for (SeekerSkill skill : entity.getSeekerSkills()) {
-            skill.setSkillsOwner(entity);
+            if (skill.getSkillsOwner() == null)
+                skill.setSkillsOwner(entity);
         }
         super.saveOrUpdate(entity);
     }
@@ -58,10 +56,13 @@ public class SeekerRepositoryImpl extends BaseRepositoryImpl<Seeker> implements 
         initPageWrapperLogic(query, pageable);
     }
 
-
     private void orderingQueryLogic(Pageable pageable, String sortType) {
         Query query = null;
         switch (pageable.getOrderingType()) {
+            case ORDER_BY_ID:
+                query = getEntityManager()
+                        .createQuery("SELECT s FROM Seeker s ORDER BY s.id " + sortType, Seeker.class);
+                break;
             case ORDER_BY_FIRST_NAME:
                 query = getEntityManager()
                         .createQuery("SELECT s FROM Seeker s ORDER BY s.firstName " + sortType, Seeker.class);
@@ -80,15 +81,15 @@ public class SeekerRepositoryImpl extends BaseRepositoryImpl<Seeker> implements 
 
     @SuppressWarnings("unchecked")
     private void initPageWrapperLogic(Query query, Pageable pageable) {
-        int currentPage = pageable.getCurrentPage() - 1;
+        int currentPage = pageable.getCurrentPage();
         int rowsCount = getSeekerRowCount().intValue();
         int maxRecordsPerPage = pageable.getMaxRecordsPerPage();
         int totalPages = (int) Math.ceil((double) rowsCount / maxRecordsPerPage);
 
-        if (currentPage > totalPages)
-            throw new RwrResourceNotFoundException("Resource not found.");
+        if (currentPage <= 0 || currentPage > totalPages)
+            throw new RwrResourceNotFoundException("Page not found.");
 
-        query.setFirstResult(currentPage * maxRecordsPerPage);
+        query.setFirstResult((currentPage - 1) * maxRecordsPerPage);
         query.setMaxResults(maxRecordsPerPage);
 
         pageWrapper.setMaxRecordsPerPage(maxRecordsPerPage);

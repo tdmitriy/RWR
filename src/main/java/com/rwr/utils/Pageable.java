@@ -1,8 +1,5 @@
 package com.rwr.utils;
 
-/**
- * Created by haswell on 11/5/15.
- */
 public class Pageable {
     private int maxRecordsPerPage;
     private int currentPage;
@@ -57,21 +54,11 @@ public class Pageable {
     }
 
     public enum SortingType {
-        ASC("ASC"), DESC("DESC");
-
-        private final String typeName;
-
-        SortingType(final String typeName) {
-            this.typeName = typeName;
-        }
-
-        @Override
-        public String toString() {
-            return typeName;
-        }
+        ASC, DESC;
     }
 
     public enum OrderingType {
+        ORDER_BY_ID,
         ORDER_BY_FIRST_NAME,
         ORDER_BY_LAST_NAME,
         ORDER_BY_DATE_OF_ADDITION

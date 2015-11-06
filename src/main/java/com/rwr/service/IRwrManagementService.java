@@ -9,17 +9,14 @@ import com.rwr.utils.Pageable;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Dmitriy on 02.11.2015.
- */
 public interface IRwrManagementService {
-    Set<SkillType> getAllTypesOfSkills();
+    Set<SkillType> getSkillTypes();
 
-    Set<ImsType> getAllTypesOfIms();
+    Set<ImsType> getImsTypes();
 
-    List<Seeker> getAllSeekers();
+    List<Seeker> getSeekers();
 
-    IPageWrapper<Seeker> getAllSeekerPageable(Pageable pageable);
+    IPageWrapper<Seeker> getSeekerPageable(Pageable pageable);
 
     Seeker getSeekerById(Integer id);
 

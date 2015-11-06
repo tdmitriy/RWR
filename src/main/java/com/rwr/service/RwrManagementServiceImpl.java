@@ -19,10 +19,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Dmitriy on 02.11.2015.
- */
-
 @Service
 public class RwrManagementServiceImpl implements IRwrManagementService {
     @Autowired
@@ -35,7 +31,7 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     private ISeekerRepository seekerRepository;
 
     @Override
-    public Set<SkillType> getAllTypesOfSkills() {
+    public Set<SkillType> getSkillTypes() {
         try {
             return new HashSet<>(skillsRepository.getAll());
         } catch (Exception ex) {
@@ -44,7 +40,7 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     }
 
     @Override
-    public Set<ImsType> getAllTypesOfIms() {
+    public Set<ImsType> getImsTypes() {
         try {
             return new HashSet<>(imsRepository.getAll());
         } catch (Exception ex) {
@@ -53,7 +49,7 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     }
 
     @Override
-    public List<Seeker> getAllSeekers() {
+    public List<Seeker> getSeekers() {
         try {
             return new ArrayList<>(seekerRepository.getAll());
         } catch (Exception ex) {
@@ -61,9 +57,8 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
         }
     }
 
-
     @Override
-    public IPageWrapper<Seeker> getAllSeekerPageable(Pageable pageable) {
+    public IPageWrapper<Seeker> getSeekerPageable(Pageable pageable) {
         try {
             return seekerRepository.getSeekerPageable(pageable);
         } catch (Exception ex) {

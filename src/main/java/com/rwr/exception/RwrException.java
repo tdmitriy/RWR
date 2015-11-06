@@ -5,6 +5,7 @@ package com.rwr.exception;
  */
 public class RwrException extends RuntimeException {
     public RwrException() {
+        super();
     }
 
     public RwrException(String message) {
