@@ -3,6 +3,7 @@ bin
 target
 .classpath
 .project
+node_modules
 .settings
 src/main/webapp/META-INF
 .idea

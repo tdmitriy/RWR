@@ -18,6 +18,8 @@ public interface IRwrManagementService {
 
     IPageWrapper<Seeker> getSeekerPageable(Pageable pageable);
 
+    IPageWrapper<Seeker> getSeekerSortedPageable(Pageable pageable);
+
     Seeker getSeekerById(Integer id);
 
     void saveOrUpdateSeeker(Seeker entity);

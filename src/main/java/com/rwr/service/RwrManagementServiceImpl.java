@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional(rollbackFor = {RwrDaoException.class, RwrResourceNotFoundException.class})
 public class RwrManagementServiceImpl implements IRwrManagementService {
     @Autowired
     private IImsRepository imsRepository;
@@ -71,6 +72,19 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     }
 
     @Override
+    public IPageWrapper<Seeker> getSeekerSortedPageable(Pageable pageable) {
+        try {
+            return seekerRepository.getSeekerSortedPageable(pageable);
+        } catch (Exception ex) {
+            if (ex instanceof RwrResourceNotFoundException) {
+                throw (RwrResourceNotFoundException) ex;
+            } else {
+                throw new RwrDaoException(ex);
+            }
+        }
+    }
+
+    @Override
     public Seeker getSeekerById(Integer id) {
         try {
             return seekerRepository.getById(id);
@@ -80,7 +94,6 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     }
 
     @Override
-    @Transactional(rollbackFor = RwrDaoException.class)
     public void saveOrUpdateSeeker(Seeker entity) {
         try {
             seekerRepository.saveOrUpdate(entity);
@@ -90,7 +103,6 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     }
 
     @Override
-    @Transactional(rollbackFor = RwrDaoException.class)
     public void delete(Seeker entity) {
         try {
             seekerRepository.delete(entity);
@@ -100,7 +112,6 @@ public class RwrManagementServiceImpl implements IRwrManagementService {
     }
 
     @Override
-    @Transactional(rollbackFor = RwrDaoException.class)
     public void delete(Integer id) {
         try {
             seekerRepository.delete(id);

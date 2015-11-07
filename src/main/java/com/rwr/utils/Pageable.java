@@ -10,7 +10,7 @@ public class Pageable {
     }
 
     public Pageable(int currentPage, int maxRecordsPerPage, SortingType sortingType, OrderingType orderingType) {
-        this.maxRecordsPerPage = maxRecordsPerPage;
+        this.setMaxRecordsPerPage(maxRecordsPerPage);
         this.currentPage = currentPage;
         this.sortingType = sortingType;
         this.orderingType = orderingType;
@@ -26,7 +26,9 @@ public class Pageable {
     }
 
     public void setMaxRecordsPerPage(int maxRecordsPerPage) {
-        this.maxRecordsPerPage = maxRecordsPerPage;
+        if (maxRecordsPerPage <= PageConstants.MAX_RECORDS_PER_PAGE)
+            this.maxRecordsPerPage = maxRecordsPerPage;
+        else this.maxRecordsPerPage = PageConstants.MAX_RECORDS_PER_PAGE;
     }
 
     public int getCurrentPage() {
@@ -54,7 +56,7 @@ public class Pageable {
     }
 
     public enum SortingType {
-        ASC, DESC;
+        ASC, DESC
     }
 
     public enum OrderingType {

@@ -8,6 +8,7 @@ import com.rwr.exception.RwrDaoException;
 import com.rwr.exception.RwrJsonResponseException;
 import com.rwr.service.IRwrManagementService;
 import com.rwr.utils.IPageWrapper;
+import com.rwr.utils.PageConstants;
 import com.rwr.utils.PageValidator;
 import com.rwr.utils.Pageable;
 import org.slf4j.Logger;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -30,20 +32,32 @@ import java.util.Set;
 public class RwrManagementRestController {
     private static final Logger log = LoggerFactory.getLogger(RwrManagementRestController.class);
 
-    public static final int DEFAULT_START_PAGE = 1;
-    public static final int MAX_RECORDS_PER_PAGE = 5;
-
     @Autowired
     private IRwrManagementService rwrService;
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/getSeekers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/getSeekersPageable", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public IPageWrapper<Seeker> getSeekerPageable(
             @RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "order_by", required = false) String orderBy,
-            @RequestParam(value = "sort_by", required = false) String sortBy) {
+            @RequestParam(value = "max_records", required = false) Integer maxRecords) {
 
-        Pageable pageable = PageValidator.getValidatedPageable(page, orderBy, sortBy);
+        page = page == null ? PageConstants.DEFAULT_START_PAGE : page;
+        maxRecords = maxRecords == null ? PageConstants.DEFAULT_RECORDS_PER_PAGE : maxRecords;
+
+        Pageable pageable = new Pageable(page, maxRecords);
+
+        return rwrService.getSeekerPageable(pageable);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/getSeekersSortedPageable", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public IPageWrapper<Seeker> getSeekerSortedPageable(
+            @RequestParam(value = "page", required = true) Integer page,
+            @RequestParam(value = "max_records", required = false) Integer maxRecords,
+            @RequestParam(value = "order_by", required = true) String orderBy,
+            @RequestParam(value = "sort_by", required = true) String sortBy) {
+
+        Pageable pageable = PageValidator.getValidatedPageable(page, maxRecords, orderBy, sortBy);
 
         return rwrService.getSeekerPageable(pageable);
     }
@@ -72,7 +86,7 @@ public class RwrManagementRestController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Integer id) {
         if (id != null) {
             rwrService.delete(id);

@@ -35,7 +35,7 @@
                 <i class="fa fa-database"></i> No users found
             </div>--%>
 
-            <div class="table-responsive">
+            <div class="table-responsive" ng-controller="pageableController">
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
@@ -49,31 +49,29 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>Vasya</td>
-                        <td>Petarda</td>
-                        <td>2015-01-01</td>
-                        <td>Java(8)</td>
-                        <td>C#(5)</td>
-                        <td>C(2)</td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-danger btn-xs"
-                                    title="Delete">
-                                <i class="fa fa-trash-o fa-fw"></i>
-                            </button>
-                            <button type="button" class="btn btn-primary btn-xs"
-                                    title="Edit">
-                                <i class="fa fa-pencil fa-fw"></i>
-                            </button>
+                    <tr ng-repeat="seeker in seekersPageable.collection">
+                        <td>{{ seeker.firstName }}</td>
+                        <td>{{ seeker.lastName }}</td>
+                        <td>{{ seeker.dateOfAddition }}</td>
+                        <td>
+                            {{ seeker.seekerSkills[0].skillType.skillName || 'Not Set' }}
+                            <span ng-show="seeker.seekerSkills[0].skillRating !== undefined">
+                                {{ '(' + seeker.seekerSkills[0].skillRating + ')' }}
+                            </span>
+
                         </td>
-                    </tr>
-                    <tr>
-                        <td>Vasya</td>
-                        <td>Petarda</td>
-                        <td>2015-01-01</td>
-                        <td>Java(8)</td>
-                        <td>C#(5)</td>
-                        <td>C(2)</td>
+                        <td>
+                            {{ seeker.seekerSkills[1].skillType.skillName || 'Not Set' }}
+                            <span ng-show="seeker.seekerSkills[1].skillRating !== undefined">
+                                {{ '(' + seeker.seekerSkills[1].skillRating + ')' }}
+                            </span>
+                        </td>
+                        <td>
+                            {{ seeker.seekerSkills[2].skillType.skillName || 'Not Set' }}
+                            <span ng-show="seeker.seekerSkills[2].skillRating !== undefined">
+                                {{ '(' + seeker.seekerSkills[2].skillRating + ')' }}
+                            </span>
+                        </td>
                         <td class="text-center">
                             <button type="button" class="btn btn-danger btn-xs"
                                     title="Delete">
@@ -88,10 +86,10 @@
                     </tbody>
                 </table>
                 <div class="text-center">
-                    <ul class="pagination">
-                        <li><a href="#" data-original-title="" title="">1</a></li>
-                        <li><a href="#" data-original-title="" title="">2</a></li>
-                    </ul>
+                    <uib-pagination total-items="page.maxTotalItems" ng-model="page.currentPage"
+                                    items-per-page="page.itemsPerPage" ng-change="pageChanged()"
+                                    max-size="page.maxSize" class="pagination-sm"
+                                    boundary-links="true"></uib-pagination>
                 </div>
             </div>
             <!-- /.table-responsive -->

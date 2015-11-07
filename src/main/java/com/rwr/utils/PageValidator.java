@@ -1,6 +1,5 @@
 package com.rwr.utils;
 
-import com.rwr.controller.RwrManagementRestController;
 import com.rwr.exception.RwrBadRequestException;
 import com.rwr.utils.Pageable.*;
 
@@ -14,33 +13,10 @@ public class PageValidator {
     private PageValidator() {
     }
 
-    public static Pageable getValidatedPageable(Integer page, String orderBy, String sortBy) {
-        Pageable pageable;
-        if (page == null) {
-            pageable = new Pageable(RwrManagementRestController.DEFAULT_START_PAGE,
-                    RwrManagementRestController.MAX_RECORDS_PER_PAGE);
-        } else {
-            if (orderBy == null && sortBy == null)
-                pageable = new Pageable(page, RwrManagementRestController.MAX_RECORDS_PER_PAGE);
-            else pageable = getOrderedAndSortedPageable(page, orderBy, sortBy);
-        }
-        return pageable;
-    }
-
-    private static Pageable getOrderedAndSortedPageable(Integer page, String orderBy, String sortBy) {
-        Pageable pageable;
-        if (orderBy == null || sortBy == null) {
-            throw new RwrBadRequestException("Parameters 'order_by' and 'sort_by' must be set.");
-        } else {
-            pageable = getParsedPageable(page, orderBy, sortBy);
-        }
-        return pageable;
-    }
-
-    private static Pageable getParsedPageable(Integer page, String orderBy, String sortBy) {
+    public static Pageable getValidatedPageable(Integer page, Integer maxRecords, String orderBy, String sortBy) {
         Pageable pageable = new Pageable();
         pageable.setCurrentPage(page);
-        pageable.setMaxRecordsPerPage(RwrManagementRestController.MAX_RECORDS_PER_PAGE);
+        pageable.setMaxRecordsPerPage(maxRecords == null ? PageConstants.DEFAULT_RECORDS_PER_PAGE : maxRecords);
         pageable.setSortingType(sortBy.equals("asc") ? SortingType.ASC : SortingType.DESC);
         switch (orderBy) {
             case ORDER_BY_ID:
@@ -58,7 +34,6 @@ public class PageValidator {
             default:
                 throw new RwrBadRequestException("Ordering type format is wrong.");
         }
-
         return pageable;
     }
 }

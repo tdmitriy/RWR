@@ -10,5 +10,7 @@ import com.rwr.utils.Pageable;
 public interface ISeekerRepository extends IBaseRepository<Seeker> {
     IPageWrapper<Seeker> getSeekerPageable(Pageable pageable) throws RwrResourceNotFoundException;
 
+    IPageWrapper<Seeker> getSeekerSortedPageable(Pageable pageable) throws RwrResourceNotFoundException;
+
     Long getSeekerRowCount();
 }

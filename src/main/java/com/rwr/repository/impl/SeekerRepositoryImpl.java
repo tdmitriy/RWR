@@ -20,18 +20,39 @@ public class SeekerRepositoryImpl extends BaseRepositoryImpl<Seeker> implements 
     @Autowired
     private IPageWrapper<Seeker> pageWrapper;
 
-    @SuppressWarnings({"JpaQlInspection", "unchecked"})
+    @SuppressWarnings({"JpaQlInspection"})
     @Override
-    public IPageWrapper<Seeker> getSeekerPageable(Pageable pageable) {
+    public IPageWrapper<Seeker> getSeekerPageable(Pageable pageable) throws RwrResourceNotFoundException {
+        Query query = getEntityManager().createQuery("SELECT s FROM Seeker s", Seeker.class);
+        initPageWrapperLogic(query, pageable);
+        return pageWrapper;
+    }
+
+    @Override
+    public IPageWrapper<Seeker> getSeekerSortedPageable(Pageable pageable) throws RwrResourceNotFoundException {
         SortingType sortingType = pageable.getSortingType();
         OrderingType orderingType = pageable.getOrderingType();
-
-        if (sortingType == null || orderingType == null) {
-            orderingQueryLogic(pageable);
-        } else {
-            orderingQueryLogic(pageable, sortingType.toString());
+        Query query = null;
+        switch (orderingType) {
+            case ORDER_BY_ID:
+                query = getEntityManager()
+                        .createQuery("SELECT s FROM Seeker s ORDER BY s.id " + sortingType.toString(), Seeker.class);
+                break;
+            case ORDER_BY_FIRST_NAME:
+                query = getEntityManager()
+                        .createQuery("SELECT s FROM Seeker s ORDER BY s.firstName " + sortingType.toString(), Seeker.class);
+                break;
+            case ORDER_BY_LAST_NAME:
+                query = getEntityManager()
+                        .createQuery("SELECT s FROM Seeker s ORDER BY s.lastName " + sortingType.toString(), Seeker.class);
+                break;
+            case ORDER_BY_DATE_OF_ADDITION:
+                query = getEntityManager()
+                        .createQuery("SELECT s FROM Seeker s ORDER BY s.dateOfAddition " + sortingType.toString(), Seeker.class);
+                break;
         }
-        return pageWrapper;
+        initPageWrapperLogic(query, pageable);
+        return null;
     }
 
     @SuppressWarnings("JpaQlInspection")
@@ -48,35 +69,6 @@ public class SeekerRepositoryImpl extends BaseRepositoryImpl<Seeker> implements 
                 skill.setSkillsOwner(entity);
         }
         super.saveOrUpdate(entity);
-    }
-
-    @SuppressWarnings("JpaQlInspection")
-    private void orderingQueryLogic(Pageable pageable) {
-        Query query = getEntityManager().createQuery("SELECT s FROM Seeker s", Seeker.class);
-        initPageWrapperLogic(query, pageable);
-    }
-
-    private void orderingQueryLogic(Pageable pageable, String sortType) {
-        Query query = null;
-        switch (pageable.getOrderingType()) {
-            case ORDER_BY_ID:
-                query = getEntityManager()
-                        .createQuery("SELECT s FROM Seeker s ORDER BY s.id " + sortType, Seeker.class);
-                break;
-            case ORDER_BY_FIRST_NAME:
-                query = getEntityManager()
-                        .createQuery("SELECT s FROM Seeker s ORDER BY s.firstName " + sortType, Seeker.class);
-                break;
-            case ORDER_BY_LAST_NAME:
-                query = getEntityManager()
-                        .createQuery("SELECT s FROM Seeker s ORDER BY s.lastName " + sortType, Seeker.class);
-                break;
-            case ORDER_BY_DATE_OF_ADDITION:
-                query = getEntityManager()
-                        .createQuery("SELECT s FROM Seeker s ORDER BY s.dateOfAddition " + sortType, Seeker.class);
-                break;
-        }
-        initPageWrapperLogic(query, pageable);
     }
 
     @SuppressWarnings("unchecked")
