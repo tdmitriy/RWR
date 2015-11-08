@@ -3,7 +3,7 @@
 
 <div class="col-lg-7 col-centered">
     <h4>
-        <a href>
+        <a href ng-click="backToTable()">
             <i class="fa fa-arrow-left fa-fw"></i>
             Back to management table
         </a>
@@ -49,10 +49,13 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <div class=" input-group">
+                                <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-calendar-o fa-fw"></i></span>
-                                    <input name="dateOfAddition" class="form-control"
-                                           placeholder="Date of addition">
+                                    <input id="dateOfAddition" name="startDate" type="text" class="form-control"
+                                           placeholder="Date of addition"
+                                           uib-datepicker-popup="{{date.format}}" ng-model="date.dateOfAddition"
+                                           is-open="date.isOpenedDateOfAddition" ng-click="openDateOfAddition($event)"
+                                           close-text="Close"/>
                                 </div>
                                 <%-- validation messages for dateOA --%>
                             </div>
@@ -61,8 +64,11 @@
                             <div class="form-group">
                                 <div class=" input-group">
                                     <span class="input-group-addon"><i class="fa fa-calendar-o fa-fw"></i></span>
-                                    <input name="dateOfInterview" class="form-control"
-                                           placeholder="Date of interview">
+                                    <input id="dateOfInterview" name="startDate" type="text" class="form-control"
+                                           placeholder="Date of interview"
+                                           uib-datepicker-popup="{{date.format}}" ng-model="date.dateOfInterview"
+                                           is-open="date.isOpenedDateOfInterview" ng-click="openDateOfInterview($event)"
+                                           close-text="Close"/>
                                 </div>
                                 <%-- validation messages for dateOI --%>
                             </div>

@@ -18,6 +18,7 @@ public class RwrSiteTemplateController {
 
     private static final String SITE_TEMPLATE_PAGE = "siteTemplate";
     private static final String TABLE_MANAGEMENT_PAGE = "view/seekerTableManagementView";
+    private static final String ADD_NEW_SEEKER_PAGE = "view/seekerSaveManagementView";
 
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -28,6 +29,11 @@ public class RwrSiteTemplateController {
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String showTableManagementView() {
         return TABLE_MANAGEMENT_PAGE;
+    }
+
+    @RequestMapping(value = "/management/add", method = RequestMethod.GET)
+    public String showAddNewSeekerView() {
+        return ADD_NEW_SEEKER_PAGE;
     }
 
 }

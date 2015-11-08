@@ -8,6 +8,7 @@
 
             <div class="refresh-table pull-left">
                 <button class="btn btn-primary btn-xs"
+                        ng-click="getSeekersPageable(page.currentPage, page.itemsPerPage)"
                         title="Refresh table">
                     <i class="fa fa-refresh fa-fw"></i>
                 </button>
@@ -15,16 +16,20 @@
 
             <div class="btn-group pull-right">
                 <div class="btn-group-xs">
-                    <button class="btn btn-success btn-xs ng-fade"
-                            title="Add new seeker">
+                    <a href="${addNewSeekerUrl}" class="btn btn-success btn-xs ng-fade"
+                       ng-click="savePageableUrl()"
+                       title="Add new seeker">
                         <i class="fa fa-plus fa-fw"></i>
                         Add new seeker
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
 
         <div class="panel-body">
+
+            <%-- include error form --%>
+            <%@include file="/WEB-INF/pages/includes/angular/errorForm.jsp" %>
 
             <%-- include search form --%>
             <%@include file="/WEB-INF/pages/includes/angular/searchForm.jsp" %>
@@ -35,8 +40,8 @@
                 <i class="fa fa-database"></i> No users found
             </div>--%>
 
-            <div class="table-responsive" ng-controller="pageableController">
-                <table class="table table-bordered table-hover">
+            <div class="table-responsive">
+                <table class="table table-striped table-condensed table-hover">
                     <thead>
                     <tr>
                         <th>First name</th>
@@ -49,31 +54,32 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="seeker in seekersPageable.collection">
-                        <td>{{ seeker.firstName }}</td>
-                        <td>{{ seeker.lastName }}</td>
-                        <td>{{ seeker.dateOfAddition }}</td>
+                    <tr ng-repeat="seekerItem in seekersPageable.collection">
+                        <td>{{ seekerItem.firstName }}</td>
+                        <td>{{ seekerItem.lastName }}</td>
+                        <td>{{ seekerItem.dateOfAddition }}</td>
                         <td>
-                            {{ seeker.seekerSkills[0].skillType.skillName || 'Not Set' }}
-                            <span ng-show="seeker.seekerSkills[0].skillRating !== undefined">
-                                {{ '(' + seeker.seekerSkills[0].skillRating + ')' }}
+                            {{ seekerItem.seekerSkills[0].skillType.skillName || 'Not Set' }}
+                            <span ng-show="seekerItem.seekerSkills[0].skillRating !== undefined">
+                                {{ '(' + seekerItem.seekerSkills[0].skillRating + ')' }}
                             </span>
 
                         </td>
                         <td>
-                            {{ seeker.seekerSkills[1].skillType.skillName || 'Not Set' }}
-                            <span ng-show="seeker.seekerSkills[1].skillRating !== undefined">
-                                {{ '(' + seeker.seekerSkills[1].skillRating + ')' }}
+                            {{ seekerItem.seekerSkills[1].skillType.skillName || 'Not Set' }}
+                            <span ng-show="seekerItem.seekerSkills[1].skillRating !== undefined">
+                                {{ '(' + seekerItem.seekerSkills[1].skillRating + ')' }}
                             </span>
                         </td>
                         <td>
-                            {{ seeker.seekerSkills[2].skillType.skillName || 'Not Set' }}
-                            <span ng-show="seeker.seekerSkills[2].skillRating !== undefined">
-                                {{ '(' + seeker.seekerSkills[2].skillRating + ')' }}
+                            {{ seekerItem.seekerSkills[2].skillType.skillName || 'Not Set' }}
+                            <span ng-show="seekerItem.seekerSkills[2].skillRating !== undefined">
+                                {{ '(' + seekerItem.seekerSkills[2].skillRating + ')' }}
                             </span>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" ng-controller="managementController">
                             <button type="button" class="btn btn-danger btn-xs"
+                                    ng-click="modal.showConfirm(seekerItem.id)"
                                     title="Delete">
                                 <i class="fa fa-trash-o fa-fw"></i>
                             </button>

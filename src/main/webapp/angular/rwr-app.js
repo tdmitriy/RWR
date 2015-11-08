@@ -7,7 +7,7 @@ var RwrApp = angular.module('RwrApp',
         'angularModalService',
         'ui-notification',
         'ui.bootstrap',
-        'ngMessages'
+        'ngMessages',
     ]);
 
 RwrApp.config(['$routeProvider', function ($routeProvider) {
@@ -17,8 +17,8 @@ RwrApp.config(['$routeProvider', function ($routeProvider) {
         reloadOnSearch: false
     });
 
-    $routeProvider.when('/list', {
-        templateUrl: '/blabla',
-        controller: 'pageableController'
+    $routeProvider.when('/management/add', {
+        templateUrl: '/management/add',
+        controller: 'managementController'
     });
 }]);

@@ -13,12 +13,8 @@
     <!-- /.row -->
 
     <div class="row row-centered">
-        <%-- include error form --%>
-        <%--<%@include file="/WEB-INF/pages/includes/angular/errorForm.jsp" %>--%>
-
         <%-- include table for management --%>
         <%@include file="/WEB-INF/pages/includes/angular/tableForManagement.jsp" %>
-        <%-- include seeker form --%>
     </div>
     <!-- /.row -->
 </div>

@@ -5,3 +5,4 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <spring:url value="#/" var="indexURL"/>
+<spring:url value="#/management/add" var="addNewSeekerUrl"/>

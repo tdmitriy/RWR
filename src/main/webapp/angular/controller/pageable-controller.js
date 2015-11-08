@@ -2,50 +2,51 @@ RwrApp.controller('pageableController',
     ['$scope', 'appFactory', '$routeParams', '$route', '$location',
         function ($scope, appFactory, $routeParams, $route, $location) {
             var errorService = appFactory.getErrorService();
-            var pageableService = appFactory.getPageableService();
+            var pageableSeekerFactory = appFactory.getPageableSeekerFactory();
 
-            var lastRoute = $route.current;
+            $scope.page = {
+                sortMode: false,
+                defaultFirstPage: 1,
+                defaultItemsPerPage: 3,
+                currentPage: 1,
+                maxPagerItemsSize: 5,
+                itemsPerPage: null,
+                maxTotalItems: null
+            };
 
-            var DEFAULT_FIRST_PAGE = 1;
-            var DEFAULT_ITEMS_PER_PAGE = 3;
+            $scope.seekersPageable = {};
 
-            $scope.page = {};
-            $scope.page.currentPage = 1;
-            $scope.page.maxPagerItemsSize = 5;
-            $scope.page.itemsPerPage = null;
-            $scope.page.maxTotalItems = null;
+            $scope.getSeekersNonSortableList = function (page, maxRecordsPerPage) {
+                $scope.resetErrors();
+                if (typeof page === 'undefined' || page === null) {
+                    page = $scope.page.defaultFirstPage;
+                }
 
-            $scope.getSeekersPageable = function (page, maxRecordsPerPage) {
-                //$scope.resetErrors();
-                page = $scope.page.currentPage === null ? DEFAULT_FIRST_PAGE : $scope.page.currentPage;
-                maxRecordsPerPage = $scope.page.itemsPerPage === null ?
-                    DEFAULT_ITEMS_PER_PAGE : $scope.page.itemsPerPage;
+                if (typeof maxRecordsPerPage === 'undefined' || maxRecordsPerPage === null) {
+                    maxRecordsPerPage = $scope.page.defaultItemsPerPage;
+                }
 
-                pageableService.fetchSeekersWithoutSorting(page, maxRecordsPerPage).then(function (response) {
+                pageableSeekerFactory.getSeekersNonSortableList(page, maxRecordsPerPage).then(function (response) {
                     $scope.seekersPageable = response;
+                    console.log($scope.seekersPageable);
                     $scope.setCurrentPage(page);
                     $scope.setItemsPerPage(maxRecordsPerPage);
                     $scope.setTotalNumberOfItems($scope.seekersPageable.rowsCount);
                 });
             };
 
-            $scope.getSeekersSortedPageable = function (page, maxRecordsPerPage, sortBy, orderBy) {
-                //$scope.resetErrors();
-                $scope.seekersPageable = [];
+            $scope.getSeekersSortableList = function (page, maxRecordsPerPage, sortBy, orderBy) {
+                $scope.resetErrors();
 
-                pageableService.fetchSeekersWithSorting(page, maxRecordsPerPage, sortBy, orderBy).then(function (response) {
+                pageableSeekerFactory.getSeekersSortableList(page, maxRecordsPerPage, sortBy, orderBy).then(function (response) {
                     $scope.seekersPageable = response;
                 });
             };
 
-            $scope.$on('$routeChangeStart', function (event, next, current) {
-                //$route.current = lastRoute;
-                console.log($routeParams);
-            });
-
             $scope.pageChanged = function () {
-                //$scope.getSeekersPageable($scope.page.currentPage, DEFAULT_ITEMS_PER_PAGE);
-                $location.url('?page=' + $scope.page.currentPage);
+                $location.search('page', $scope.page.currentPage);
+                $scope.getSeekersNonSortableList($location.search().page, $scope.page.itemsPerPage);
+
             };
 
             $scope.setCurrentPage = function (num) {
@@ -64,6 +65,29 @@ RwrApp.controller('pageableController',
                 $scope.page.maxTotalItems = num;
             };
 
-            $scope.getSeekersPageable();
+            $scope.setPageSortableMode = function (sortable) {
+                $scope.page.sortMode = sortable;
+            };
+
+            $scope.savePageableUrl = function () {
+                pageableSeekerFactory.setPageableUrl($location.url());
+            };
+
+            $scope.isError = function () {
+                return errorService.isError();
+            };
+
+            $scope.getErrors = function () {
+                return errorService.getErrors();
+            };
+
+            $scope.resetErrors = function () {
+                return errorService.resetErrors();
+            };
+
+            $scope.page.sortMode === true ?
+                $scope.getSeekersSortableList($location.search().page,
+                    $location.search().max_records, $location.search().order_by, $location.search().sort_by) :
+                $scope.getSeekersNonSortableList($location.search().page, $location.search().max_records);
 
         }]);
