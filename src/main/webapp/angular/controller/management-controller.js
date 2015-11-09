@@ -90,8 +90,9 @@ RwrApp.controller('managementController', ['$scope', '$route', 'appFactory', '$l
                 modal.close.then(function (modalData) {
                     //handle buttons result
                     if (modalData !== 'cancel') {
-                        if (typeof id !== 'undefined' || id !== null)
-                            $scope.deleteSeekerById(id);
+                        if (typeof id !== 'undefined' || id !== null) {
+                            //$scope.deleteSeekerById(id);
+                        }
                     }
                 });
             });

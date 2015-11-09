@@ -8,7 +8,7 @@
 
             <div class="refresh-table pull-left">
                 <button class="btn btn-primary btn-xs"
-                        ng-click="getSeekersPageable(page.currentPage, page.itemsPerPage)"
+                        ng-click="getSeekersPageableList()"
                         title="Refresh table">
                     <i class="fa fa-refresh fa-fw"></i>
                 </button>
@@ -77,7 +77,7 @@
                                 {{ '(' + seekerItem.seekerSkills[2].skillRating + ')' }}
                             </span>
                         </td>
-                        <td class="text-center" ng-controller="managementController">
+                        <td class="text-center">
                             <button type="button" class="btn btn-danger btn-xs"
                                     ng-click="modal.showConfirm(seekerItem.id)"
                                     title="Delete">

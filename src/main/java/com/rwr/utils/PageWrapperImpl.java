@@ -6,15 +6,12 @@ public class PageWrapperImpl<T> implements IPageWrapper<T> {
     private int rowsCount;
     private int maxRecordsPerPage;
     private int totalPages;
+    private boolean nextPage;
+    private boolean prevPage;
+    private boolean lastPage;
     private Collection<T> collection;
 
     public PageWrapperImpl() {
-    }
-
-    public PageWrapperImpl(int rowsCount, int maxRecordsPerPage, Collection<T> collection) {
-        this.rowsCount = rowsCount;
-        this.maxRecordsPerPage = maxRecordsPerPage;
-        this.collection = collection;
     }
 
     @Override
@@ -40,6 +37,36 @@ public class PageWrapperImpl<T> implements IPageWrapper<T> {
     @Override
     public int getMaxRecordsPerPage() {
         return maxRecordsPerPage;
+    }
+
+    @Override
+    public boolean getNextPage() {
+        return nextPage;
+    }
+
+    @Override
+    public void setNextPage(boolean nextPage) {
+        this.nextPage = nextPage;
+    }
+
+    @Override
+    public boolean getPrevPage() {
+        return prevPage;
+    }
+
+    @Override
+    public void setPrevPage(boolean prevPage) {
+        this.prevPage = prevPage;
+    }
+
+    @Override
+    public boolean getLastPage() {
+        return lastPage;
+    }
+
+    @Override
+    public void setLastPage(boolean lastPage) {
+        this.lastPage = lastPage;
     }
 
     @Override

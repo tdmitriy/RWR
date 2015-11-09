@@ -87,6 +87,9 @@ public class SeekerRepositoryImpl extends BaseRepositoryImpl<Seeker> implements 
         pageWrapper.setMaxRecordsPerPage(maxRecordsPerPage);
         pageWrapper.setRowsCount(rowsCount);
         pageWrapper.setTotalPages(totalPages);
+        pageWrapper.setNextPage(currentPage < totalPages);
+        pageWrapper.setPrevPage(currentPage != 1);
+        pageWrapper.setLastPage(currentPage == totalPages);
         pageWrapper.setCollection(query.getResultList());
     }
 }
