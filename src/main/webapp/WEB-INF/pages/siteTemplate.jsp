@@ -2,7 +2,7 @@
 <%@include file="/WEB-INF/pages/includes/tags.jsp" %>
 
 <%-- Libs/dependences --%>
-<c:url var="font_awesome_css" value="/libs/font-awesome/css/font-awesome.min.css"/>
+<c:url var="font_awesome_css" value="/build/font-awesome/css/font-awesome.min.css"/>
 <c:url var="styles_css" value="/build/css/styles.css"/>
 
 <%-- JS --%>

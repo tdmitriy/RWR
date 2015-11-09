@@ -24,7 +24,6 @@ body {
     line-height: normal;
 }
 
-
 @media (min-width: 768px) {
     #wrapper {
         padding-left: 0;
@@ -123,15 +122,16 @@ body {
 
 /* centered columns styles */
 .row-centered {
-    text-align:center;
+    text-align: center;
 }
+
 .col-centered {
-    display:inline-block;
-    float:none;
+    display: inline-block;
+    float: none;
     /* reset the text-align */
-    text-align:left;
+    text-align: left;
     /* inline-block space fix */
-    margin-right:-4px;
+    margin-right: -4px;
 }
 
 /* disable button outline when clicked */
@@ -174,6 +174,22 @@ body {
     background: #00AC34;
     height: 5px;
 }
+
+/* contacts block */
+.list-item-management {
+    margin-top: 5px;
+    width: 100%;
+}
+
+.li-hovered:hover {
+    background-color: #f5f5f5;
+}
+
+.btn-management-delete-red {
+    color: red;
+}
+
+/* end contacts */
 
 #loading-bar-spinner .spinner-icon {
     border-top-color: #00AC34;
@@ -224,6 +240,7 @@ body {
     transition: 0.5s linear all;
     opacity: 1;
 }
+
 .ng-fade.ng-hide {
     opacity: 0;
 }
