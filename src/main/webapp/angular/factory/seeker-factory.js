@@ -16,8 +16,6 @@ RwrApp.factory('seekerFactory', ['$http', '$q', 'errorService', function ($http,
 
         save: function (seeker) {
             if (seeker.id <= 0) seeker.id = null;
-            seeker.firstName = seeker.firstName.trim();
-            seeker.lastName = seeker.lastName.trim();
 
             var responseResult = $q.defer();
             $http.post(urlApi + '/save', seeker).then(function (response) {

@@ -5,36 +5,42 @@ import com.rwr.entity.contacts.SeekerContacts;
 import com.rwr.entity.skills.SeekerSkill;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.Set;
-
-/**
- * Created by Dmitriy on 29.10.2015.
- */
 
 @Entity
 @Table(name = "SEEKER")
 public class Seeker extends BaseEntity {
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
+    @NotNull(message = "First name is required.")
+    @Size(min = 2, max = 30, message = "First name must be between {min} - {max} values.")
+    @Pattern(regexp = "[A-Za-zА-Яа-я]*", message = "First name must contains only letters.")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
+    @NotNull(message = "Last name is required.")
+    @Size(min = 2, max = 30, message = "Last name must be between {min} - {max} values.")
+    @Pattern(regexp = "[A-Za-zА-Яа-я]*", message = "Last name must contains only letters.")
     private String lastName;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "date_of_addition", nullable = false)
+    @Column(name = "date_of_addition")
+    @NotNull(message = "Date of addition is required.")
     private Date dateOfAddition;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "date_of_interview", nullable = false)
+    @Column(name = "date_of_interview")
     private Date dateOfInterview;
 
     @Embedded
     private SeekerContacts contacts;
 
     @OrderBy("skillRating DESC")
-    @OneToMany(mappedBy = "skillsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "skillsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SeekerSkill> seekerSkills;
 
     public Seeker() {

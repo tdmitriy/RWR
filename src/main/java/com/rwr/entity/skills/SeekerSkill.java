@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "SEEKER_SKILLS")
 public class SeekerSkill extends BaseEntity {
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinColumn(name = "skill_type_id")
     private SkillType skillType;
 
@@ -17,7 +17,7 @@ public class SeekerSkill extends BaseEntity {
     private Integer skillRating;
 
     @ManyToOne
-    @JoinColumn(name = "seeker_id", referencedColumnName = "id")
+    @JoinColumn(name = "seeker_id")
     @JsonBackReference
     private Seeker skillsOwner;
 

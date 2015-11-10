@@ -10,7 +10,7 @@ RwrApp.controller('pageableController',
             $scope.page = {
                 sortMode: false,
                 defaultFirstPage: 1,
-                defaultItemsPerPage: 3,
+                defaultItemsPerPage: 10,
                 currentPage: 1,
                 maxPagerItemsSize: 5,
                 itemsPerPage: null,
@@ -59,6 +59,11 @@ RwrApp.controller('pageableController',
                     $route.reload();
                     notifyService.successMessage("Seeker has been deleted successfully.");
                 });
+            };
+
+            $scope.editSeeker = function (id) {
+                $scope.savePageableUrl();
+                $location.path('/management/' + id);
             };
 
             $scope.pageChanged = function () {

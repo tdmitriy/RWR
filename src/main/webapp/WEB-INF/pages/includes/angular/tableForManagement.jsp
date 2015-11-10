@@ -34,12 +34,6 @@
             <%-- include search form --%>
             <%@include file="/WEB-INF/pages/includes/angular/searchForm.jsp" %>
 
-            <%-- include loading spinner --%>
-
-            <%--<div class="alert alert-info ng-fade">
-                <i class="fa fa-database"></i> No users found
-            </div>--%>
-
             <div class="table-responsive">
                 <table class="table table-striped table-condensed table-hover">
                     <thead>
@@ -84,6 +78,7 @@
                                 <i class="fa fa-trash-o fa-fw"></i>
                             </button>
                             <button type="button" class="btn btn-primary btn-xs"
+                                    ng-click="editSeeker(seekerItem.id)"
                                     title="Edit">
                                 <i class="fa fa-pencil fa-fw"></i>
                             </button>

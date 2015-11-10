@@ -7,10 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.Collection;
 
-/**
- * Created by haswell on 30.10.15.
- */
-
 public abstract class BaseRepositoryImpl<E extends BaseEntity> implements IBaseRepository<E> {
 
     private final Class<E> clazz;
@@ -37,6 +33,7 @@ public abstract class BaseRepositoryImpl<E extends BaseEntity> implements IBaseR
     @Override
     public void saveOrUpdate(final E entity) {
         entityManager.merge(entity);
+        entityManager.flush();
     }
 
     @Override

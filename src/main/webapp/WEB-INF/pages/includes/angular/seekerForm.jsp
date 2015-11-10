@@ -14,10 +14,13 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3 class="panel-title">
-                <i class="fa fa-user fa-fw"></i> Add Seeker
+                <i class="fa fa-user fa-fw"></i> {{ editableMode ? 'Edit Seeker' : 'Add Seeker' }}
             </h3>
         </div>
         <div class="panel-body">
+            <%-- include error form --%>
+            <%@include file="/WEB-INF/pages/includes/angular/errorForm.jsp" %>
+
             <fieldset>
                 <form name="seekerForm" novalidate>
 
@@ -30,11 +33,12 @@
                             <div class="form-group">
                                 <%-- Save btn --%>
                                 <button type="button" name="btnAddSeeker"
-                                        ng-click="saveSeeker(seeker)"
-                                        ng-disabled="seekerForm.$invalid"
-                                        class="btn btn-success btn-block">
+                                        ng-click="saveSeeker(seekerUpdatable)"
+                                        ng-disabled="seekerForm.$invalid || seekerUpdatable.seekerSkills.length < 1"
+                                        ng-class="{'btn btn-success btn-block' : !editableMode,
+                                        'btn btn-primary btn-block' : editableMode}">
                                     <i class="fa fa-check-square-o fa-fw"></i>
-                                    Add Seeker
+                                    {{ editableMode ? 'Edit Seeker' : 'Add Seeker' }}
                                 </button>
                             </div>
                         </div>
@@ -43,9 +47,9 @@
                                 <%-- Reset btn --%>
                                 <button type="reset"
                                         name="btnResetSeeker"
-                                        ng-click="resetSeekerModel()"
+                                        ng-click="editableMode ? backToTable() : resetSeekerModel()"
                                         class="btn btn-warning btn-block">
-                                    <i class="fa fa-remove fa-fw"></i> Reset
+                                    <i class="fa fa-remove fa-fw"></i> {{ editableMode ? 'Cancel' : 'Reset' }}
                                 </button>
                             </div>
                         </div>

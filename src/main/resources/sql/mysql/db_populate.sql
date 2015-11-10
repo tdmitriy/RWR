@@ -1,16 +1,16 @@
 USE db_rwr;
 
 INSERT INTO SEEKER (id, first_name, last_name, date_of_addition, date_of_interview) VALUES
-  (1, 'fname1', 'lname1', '2015-04-02', '2015-05-01'),
-  (2, 'fname2', 'lname2', '2015-04-15', '2015-05-11'),
-  (3, 'fname3', 'lname3', '2015-03-14', '2015-06-20'),
-  (4, 'fname4', 'lname4', '2015-02-13', '2015-06-21'),
-  (5, 'fname5', 'lname5', '2015-01-12', '2015-07-22'),
-  (6, 'fname6', 'lname6', '2015-07-11', '2015-08-22'),
-  (7, 'fname7', 'lname7', '2015-08-10', '2015-09-23'),
-  (8, 'fname8', 'lname8', '2015-05-10', '2015-10-24'),
-  (9, 'fname9', 'lname9', '2015-09-09', '2015-11-25'),
-  (10, 'fname10', 'lname10', '2015-10-18', '2015-11-26');
+  (1, 'fnameOne', 'lnameOne', '2015-04-02', '2015-05-01'),
+  (2, 'fnameTwo', 'lnameTwo', '2015-04-15', '2015-05-11'),
+  (3, 'fnameThree', 'lnameThree', '2015-03-14', '2015-06-20'),
+  (4, 'fnameFour', 'lnameFour', '2015-02-13', '2015-06-21'),
+  (5, 'fnameFive', 'lnameFive', '2015-01-12', '2015-07-22'),
+  (6, 'fnameSix', 'lnameSix', '2015-07-11', '2015-08-22'),
+  (7, 'fnameSeven', 'lnameSeven', '2015-08-10', '2015-09-23'),
+  (8, 'fnameEight', 'lnameEight', '2015-05-10', '2015-10-24'),
+  (9, 'fnameNine', 'lnameNine', '2015-09-09', '2015-11-25'),
+  (10, 'fnameTen', 'lnameTen', '2015-10-18', '2015-11-26');
 
 INSERT INTO SEEKER_PHONE (phone_number, seeker_id) VALUES
   ('80000000001', 1),

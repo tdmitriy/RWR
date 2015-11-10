@@ -1,7 +1,8 @@
 package com.rwr.utils;
 
 import com.rwr.exception.RwrBadRequestException;
-import com.rwr.utils.Pageable.*;
+import com.rwr.utils.Pageable.OrderingType;
+import com.rwr.utils.Pageable.SortingType;
 
 public class PageValidator {
 

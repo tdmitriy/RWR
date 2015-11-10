@@ -18,43 +18,41 @@
             </div>
         </div>
         <div class="form-group" ng-class="{ 'has-error' : seekerForm.skillName.$invalid &&
-                         !seekerForm.skillName.$pristine }">
+                         !seekerForm.skillName.$pristine || seekerUpdatable.seekerSkills.length < 1 }">
             <label for="skillName">Skill name:</label>
             <input id="skillName" name="skillName" class="form-control" ng-model="inputFields.skillField"
                    ng-minlength="1" ng-maxlength="10"
-                   placeholder="Skill name" required>
+                   placeholder="Skill name">
             <%-- validation messages for skills --%>
             <div class="help-block"
-                 ng-messages="seekerForm.skillName.$error"
-                 ng-if="seekerForm.skillName.$invalid && !seekerForm.skillName.$pristine">
-                <p ng-message="required">Skill name is required.</p>
-
-                <p ng-message="minlength">Skill name is too short.</p>
+                 ng-messages="seekerForm.dateOfAddition.$error"
+                 ng-if="seekerForm.skillName.$invalid && !seekerForm.skillName.$pristine ||
+                 seekerUpdatable.seekerSkills.length < 1">
+                <p ng-if="seekerUpdatable.seekerSkills.length < 1">At least one skill is required.</p>
 
                 <p ng-message="maxlength">Skill name is too long.</p>
             </div>
         </div>
         <div class="form-group" ng-class="{ 'has-error' : seekerForm.skillRating.$invalid &&
-                         !seekerForm.skillRating.$pristine }">
+                         !seekerForm.skillRating.$pristine || inputFields.skillRatingField < 1 }">
             <label for="skillRating">Skill rating (1-10):</label>
             <input type="number" id="skillRating" name="skillRating" class="form-control"
                    ng-model="inputFields.skillRatingField"
-                   min="1" max="10"
-                   placeholder="Skill rating" required>
+                   max="10"
+                   placeholder="Skill rating">
 
             <div class="help-block"
                  ng-messages="seekerForm.skillRating.$error"
-                 ng-if="seekerForm.skillRating.$invalid && !seekerForm.skillRating.$pristine">
-                <p ng-message="required">Skill rating is required.</p>
-
-                <p ng-message="min">Min value is 1.</p>
+                 ng-if="seekerForm.skillRating.$invalid && !seekerForm.skillRating.$pristine ||
+                 inputFields.skillRatingField < 1">
+                <p ng-if="inputFields.skillRatingField < 1">Min value is 1.</p>
 
                 <p ng-message="max">Max value is 10.</p>
             </div>
             <br>
             <button type="button" class="btn btn-primary"
                     ng-disabled="seekerForm.skillName.$invalid ||
-                    seekerForm.skillRating.$invalid"
+                    seekerForm.skillRating.$invalid || inputFields.skillRatingField < 1"
                     ng-click="addSkillToSeeker(inputFields.skillField)">
                 Add skill
             </button>
@@ -62,10 +60,10 @@
 
         <div class="input-group list-item-management">
             <ul class="list-group">
-                <li class="list-group-item li-hovered" ng-repeat="seekerSkill in seeker.seekerSkills">
+                <li class="list-group-item li-hovered" ng-repeat="seekerSkill in seekerUpdatable.seekerSkills">
                     {{ seekerSkill.skillType.skillName + ' (' + seekerSkill.skillRating + ')' }}
                     <div class="pull-right">
-                        <a href class="btn-management-delete-red">
+                        <a href ng-click="deleteSkill($index)" class="btn-management-delete-red">
                             <i class="fa fa-times fa-fw pull-right"></i>
                         </a>
                     </div>
