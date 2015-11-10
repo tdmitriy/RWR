@@ -333,7 +333,11 @@ RwrApp.controller('pageableController',
                 maxTotalItems: null
             };
 
+            $scope.searcKeyword = {};
+
             $scope.seekersPageable = {};
+
+            $scope
 
             $scope.getSeekersNonSortableList = function (page, maxRecordsPerPage) {
                 $scope.resetErrors();
@@ -493,6 +497,24 @@ RwrApp.service('modalService', ['ModalService', function (ModalService) {
         return modalDefaultOptions;
     };
 }]);;
+RwrApp.filter('search', function ($filter) {
+    return function (items, text) {
+        if (!text || text.length === 0)
+            return items;
+
+        var searchTerms = text.split(' ');
+
+        // search for single terms.
+        // this reduces the item list step by step
+        searchTerms.forEach(function (term) {
+            if (term && term.length)
+                items = $filter('filter')(items, term);
+        });
+
+        return items
+    };
+});
+;
 RwrApp.factory('appFactory',
     ['modalService', 'seekerFactory', 'errorService', 'notifyMessageService',
         'pageableSeekerFactory', 'dbTypesFactory',

@@ -48,7 +48,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="seekerItem in seekersPageable.collection">
+                    <tr ng-repeat="seekerItem in seekersPageable.collection | search:searchKeyword">
                         <td>{{ seekerItem.firstName }}</td>
                         <td>{{ seekerItem.lastName }}</td>
                         <td>{{ seekerItem.dateOfAddition }}</td>

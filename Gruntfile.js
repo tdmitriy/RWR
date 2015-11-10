@@ -19,6 +19,7 @@ module.exports = function (grunt) {
         [jsAppSrcPath + '/rwr-app.js',
             jsAppSrcPath + '/controller/*.js',
             jsAppSrcPath + '/service/*.js',
+            jsAppSrcPath + '/filter/*.js',
             jsAppSrcPath + '/factory/*.js'];
 
     var buildDstPath = 'src/main/webapp/build';

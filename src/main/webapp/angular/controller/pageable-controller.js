@@ -17,7 +17,11 @@ RwrApp.controller('pageableController',
                 maxTotalItems: null
             };
 
+            $scope.searcKeyword = {};
+
             $scope.seekersPageable = {};
+
+            $scope
 
             $scope.getSeekersNonSortableList = function (page, maxRecordsPerPage) {
                 $scope.resetErrors();
