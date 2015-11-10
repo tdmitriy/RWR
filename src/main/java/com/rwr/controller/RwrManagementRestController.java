@@ -1,7 +1,11 @@
 package com.rwr.controller;
 
+import com.rwr.entity.contacts.SeekerContacts;
+import com.rwr.entity.email.SeekerEmail;
 import com.rwr.entity.ims.ImsType;
+import com.rwr.entity.phone.SeekerPhone;
 import com.rwr.entity.seeker.Seeker;
+import com.rwr.entity.skills.SeekerSkill;
 import com.rwr.entity.skills.SkillType;
 import com.rwr.exception.RwrBadRequestException;
 import com.rwr.exception.RwrDaoException;
@@ -23,9 +27,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("service/seeker")
@@ -118,4 +120,6 @@ public class RwrManagementRestController {
         error.setErrors(Collections.singletonList(errMsg));
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
 }

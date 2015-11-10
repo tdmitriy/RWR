@@ -95,7 +95,8 @@
                     <uib-pagination total-items="page.maxTotalItems" ng-model="page.currentPage"
                                     items-per-page="page.itemsPerPage" ng-change="pageChanged()"
                                     max-size="page.maxSize" class="pagination-sm"
-                                    boundary-links="true"></uib-pagination>
+                                    boundary-links="true">
+                    </uib-pagination>
                 </div>
             </div>
             <!-- /.table-responsive -->

@@ -22,23 +22,51 @@ RwrApp.config(['$routeProvider', function ($routeProvider) {
         controller: 'managementController'
     });
 }]);;
+RwrApp.controller('formItemsController', ['$scope', function ($scope) {
+    $scope.date = {
+        format: 'yyyy-MM-dd',
+        isOpenedDateOfAddition: false,
+        isOpenedDateOfInterview: false
+    };
+
+    $scope.openDateOfAddition = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.date.isOpenedDateOfAddition = true;
+    };
+
+    $scope.openDateOfInterview = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.date.isOpenedDateOfInterview = true;
+    };
+
+
+    $scope.dropdown = {isOpen: false};
+
+    $scope.toggleDropdown = function ($event) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.dropdown.isOpen = !$scope.dropdown.isOpen;
+    };
+}]);;
 RwrApp.controller('managementController', ['$scope', '$route', 'appFactory', '$location',
     function ($scope, $route, appFactory, $location) {
         var seekerFactory = appFactory.getSeekerFactory();
         var pageableSeekerFactory = appFactory.getPageableSeekerFactory();
         var modalService = appFactory.getModalService();
-        var notifyService = appFactory.getNotificationService();
+        var notifyService = appFactory.getNotifyMessageService();
         var errorService = appFactory.getErrorService();
+        var dbTypesFactory = appFactory.getDbTypesFactory();
+
 
         $scope.seeker = {
-            id: null, firstName: null, lastName: null, dateOfAddition: null, dateOfInterview: null,
+            id: null, firstName: null, lastName: null, dateOfAddition: new Date(), dateOfInterview: null,
             contacts: {seekerEmails: [], seekerPhones: [], seekerIms: []},
             seekerSkills: []
         };
 
-        $scope.inputFields = {phoneField: '', emailField: '', imsField: '', skillField: ''};
-
-        $scope.editableMode = false;
+        $scope.inputFields = {phoneField: '', emailField: '', imsField: '', skillField: '', skillRatingField: ''};
 
         $scope.getSeekerById = function (id) {
             seekerFactory.getById(id).then(function (response) {
@@ -48,10 +76,10 @@ RwrApp.controller('managementController', ['$scope', '$route', 'appFactory', '$l
 
         $scope.saveSeeker = function (seeker) {
             $scope.resetErrors();
-            /*seekerFactory.save(seeker).then(function () {
-             $scope.backToTable();
-             notifyService.success(setNotifyMessage("Seeker has been saved successfully."));
-             });*/
+            seekerFactory.save(seeker).then(function () {
+                $scope.backToTable();
+                notifyService.successMessage("Seeker has been saved successfully.");
+            });
             console.log(seeker);
         };
 
@@ -59,8 +87,34 @@ RwrApp.controller('managementController', ['$scope', '$route', 'appFactory', '$l
             $scope.resetErrors();
             seekerFactory.deleteById(id).then(function () {
                 $route.reload();
-                notifyService.success(setNotifyMessage("Seeker has been deleted successfully."));
+                notifyService.successMessage("Seeker has been deleted successfully.");
             });
+        };
+
+        $scope.imsTypes = [];
+        $scope.skillTypes = [];
+
+        $scope.getImsTypes = function () {
+            dbTypesFactory.getImsTypes().then(function (response) {
+                $scope.imsTypes = response;
+            });
+        };
+
+        $scope.getSkillTypes = function () {
+            dbTypesFactory.getSkillTypes().then(function (response) {
+                $scope.skillTypes = response;
+            });
+        };
+
+        $scope.imsType = null;
+        $scope.selectedImsType = function (imsType) {
+            $scope.imsType = imsType;
+        };
+
+        $scope.skillType = null;
+        $scope.selectedSkillType = function (skillType) {
+            $scope.skillType = skillType;
+            $scope.inputFields.skillField = skillType.skillName;
         };
 
         $scope.addPhoneToSeeker = function (phone) {
@@ -72,8 +126,11 @@ RwrApp.controller('managementController', ['$scope', '$route', 'appFactory', '$l
                     break;
                 }
             }
-            if (!contains)
-                $scope.seeker.contacts.seekerPhones.push({id: null, phoneNumber: phone});
+            if (!contains) {
+                $scope.seeker.contacts.seekerPhones.push({phoneNumber: phone});
+                $scope.inputFields.phoneField = null;
+            }
+
         };
 
         $scope.addEmailToSeeker = function (email) {
@@ -85,22 +142,74 @@ RwrApp.controller('managementController', ['$scope', '$route', 'appFactory', '$l
                     break;
                 }
             }
-            if (!contains)
-                $scope.seeker.contacts.seekerEmails.push({id: null, email: email});
+            if (!contains) {
+                $scope.seeker.contacts.seekerEmails.push({email: email});
+                $scope.inputFields.emailField = null;
+            }
+
         };
 
-        $scope.addImsToSeeker = function (imsLogin) {
+        $scope.addImsToSeeker = function (login) {
+            var type = $scope.imsType;
             var i, imses = $scope.seeker.contacts.seekerIms;
             var contains = false;
-            for (i = 0; i < imses.length; i++) {
-                if (imses[i].email === email) {
+            if (typeof type !== 'undefined' && type !== null) {
+                for (i = 0; i < imses.length; i++) {
+                    if (imses[i].imsType.id === type.id) {
+                        contains = true;
+                        break;
+                    }
+                }
+            }
+            if (!contains) {
+                $scope.seeker.contacts.seekerIms.push({imsLogin: login, imsType: type});
+                $scope.imsType = null;
+                $scope.inputFields.imsField = null;
+            }
+        };
+
+
+        $scope.addSkillToSeeker = function (skill) {
+            var type = $scope.skillType;
+            var i, skills = $scope.seeker.seekerSkills;
+            var contains = false;
+
+            for (i = 0; i < skills.length; i++) {
+                if (skills[i].skillType.skillName.toLowerCase() === skill.toLowerCase()) {
                     contains = true;
                     break;
                 }
             }
-            //TODO
-            /*if (!contains)
-             $scope.seeker.contacts.seekerEmails.push({id: null, imsLogin: imsLogin, imsType:{id}});*/
+            if (typeof type === 'undefined' || type === null) {
+                addNonExistingSkill(contains, skill);
+            }
+            if (typeof type !== 'undefined' && type !== null) {
+                addSkillFromDropdown(contains, type);
+            }
+
+            $scope.skillType = null;
+            $scope.inputFields.skillField = null;
+            $scope.inputFields.skillRatingField = null;
+        };
+
+        var addNonExistingSkill = function (contains, skill) {
+            if (!contains) {
+                $scope.seeker.seekerSkills.push({
+                    id: null,
+                    skillRating: $scope.inputFields.skillRatingField,
+                    skillType: {skillName: skill.toLowerCase()}
+                });
+            }
+        };
+
+        var addSkillFromDropdown = function (contains, type) {
+            if (!contains) {
+                $scope.seeker.seekerSkills.push({
+                    id: null,
+                    skillRating: $scope.inputFields.skillRatingField,
+                    skillType: type
+                });
+            }
         };
 
         $scope.deletePhone = function (index) {
@@ -111,40 +220,20 @@ RwrApp.controller('managementController', ['$scope', '$route', 'appFactory', '$l
             $scope.seeker.contacts.seekerEmails.splice(index, 1);
         };
 
+        $scope.deleteIms = function (index) {
+            $scope.seeker.contacts.seekerIms.splice(index, 1);
+        };
+
         $scope.resetSeekerModel = function () {
             $scope.seeker = {
-                id: null, firstName: null, lastName: null, dateOfAddition: null, dateOfInterview: null,
+                id: null, firstName: null, lastName: null, dateOfAddition: new Date(), dateOfInterview: null,
                 contacts: {seekerEmails: [], seekerPhones: [], seekerIms: []},
                 seekerSkills: []
             };
         };
 
-        /* Date */
-        $scope.date = {
-            format: 'yyyy-MM-dd',
-            dateOfAddition: new Date(),
-            dateOfInterview: '',
-            isOpenedDateOfAddition: false,
-            isOpenedDateOfInterview: false
-        };
-
-        $scope.openDateOfAddition = function ($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.date.isOpenedDateOfAddition = true;
-        };
-
-        $scope.openDateOfInterview = function ($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.date.isOpenedDateOfInterview = true;
-        };
-
-        /* Rating */
-        $scope.rate = {
-            rateDefault: 1,
-            rateMax: 10,
-            isReadOnly: false
+        $scope.skillRatingSetReadOnly = function (value) {
+            $scope.skillRating = value;
         };
 
         $scope.backToTable = function () {
@@ -166,20 +255,11 @@ RwrApp.controller('managementController', ['$scope', '$route', 'appFactory', '$l
         };
 
         $scope.resetErrors = function () {
-            return errorService.resetErrors();
+            errorService.resetErrors();
         };
 
-        var notifyOptions = {
-            delay: 4000,
-            positionY: 'top',
-            positionX: 'center'
-        };
-
-        var setNotifyMessage = function (message) {
-            var icon = '<i class="fa fa-fw fa-check-circle"></i>';
-            notifyOptions.message = icon + message;
-            return notifyOptions;
-        };
+        //$scope.getImsTypes();
+        //$scope.getSkillTypes();
     }]);;
 RwrApp.controller('modalController', ['$scope', 'close', 'modalService', function ($scope, close, modalService) {
     //modalView using this options to bind the fields
@@ -195,7 +275,7 @@ RwrApp.controller('pageableController',
             var pageableSeekerFactory = appFactory.getPageableSeekerFactory();
             var seekerFactory = appFactory.getSeekerFactory();
             var modalService = appFactory.getModalService();
-            var notifyService = appFactory.getNotificationService();
+            var notifyService = appFactory.getNotifyMessageService();
 
             $scope.page = {
                 sortMode: false,
@@ -244,10 +324,10 @@ RwrApp.controller('pageableController',
             };
 
             $scope.deleteSeekerByIdFromTable = function (id) {
-                $scope.isLastItemInTable();
+                $scope.checkLastItemInTable();
                 seekerFactory.deleteById(id).then(function () {
                     $route.reload();
-                    notifyService.success(setNotifyMessage("Seeker has been deleted successfully."));
+                    notifyService.successMessage("Seeker has been deleted successfully.");
                 });
             };
 
@@ -281,14 +361,13 @@ RwrApp.controller('pageableController',
                 pageableSeekerFactory.setPageableUrl($location.url());
             };
 
-            $scope.isLastItemInTable = function () {
+            $scope.checkLastItemInTable = function () {
                 var lastPage = $scope.seekersPageable.lastPage;
                 var listSize = $scope.seekersPageable.collection.length;
                 var currPage = $location.search().page;
                 if (lastPage === true && listSize === 1 && currPage > 1) {
                     $location.search('page', currPage - 1)
                 }
-                console.log("lastPage=" + lastPage + ',listSize=' + listSize + ',currPage=' + currPage);
             };
 
             $scope.isError = function () {
@@ -316,18 +395,6 @@ RwrApp.controller('pageableController',
                         }
                     });
                 });
-            };
-
-            var notifyOptions = {
-                delay: 4000,
-                positionY: 'top',
-                positionX: 'center'
-            };
-
-            var setNotifyMessage = function (message) {
-                var icon = '<i class="fa fa-fw fa-check-circle"></i>';
-                notifyOptions.message = icon + message;
-                return notifyOptions;
             };
 
             $scope.getSeekersPageableList();
@@ -376,10 +443,10 @@ RwrApp.service('modalService', ['ModalService', function (ModalService) {
     };
 }]);;
 RwrApp.factory('appFactory',
-    ['modalService', 'seekerFactory', 'errorService', 'Notification',
+    ['modalService', 'seekerFactory', 'errorService', 'notifyMessageService',
         'pageableSeekerFactory', 'dbTypesFactory',
         function (modalService, seekerFactory, errorService,
-                  Notification, pageableSeekerFactory, dbTypesFactory) {
+                  notifyMessageService, pageableSeekerFactory, dbTypesFactory) {
             return {
                 getSeekerFactory: function () {
                     return seekerFactory;
@@ -390,8 +457,8 @@ RwrApp.factory('appFactory',
                 getErrorService: function () {
                     return errorService;
                 },
-                getNotificationService: function () {
-                    return Notification;
+                getNotifyMessageService: function () {
+                    return notifyMessageService;
                 },
                 getPageableSeekerFactory: function () {
                     return pageableSeekerFactory;
@@ -430,6 +497,25 @@ RwrApp.factory('dbTypesFactory', ['$http', '$q', 'errorService', function ($http
     }
 }]);
 ;
+RwrApp.service('notifyMessageService', ['Notification', function (Notification) {
+    var notifyOptions = {
+        delay: 4000,
+        positionY: 'top',
+        positionX: 'center'
+    };
+
+    var setNotifyMessage = function (message) {
+        var icon = '<i class="fa fa-fw fa-check-circle"></i>';
+        notifyOptions.message = icon + message;
+        return notifyOptions;
+    };
+
+    return {
+        successMessage: function (message) {
+            return Notification.success(setNotifyMessage(message));
+        }
+    };
+}]);;
 RwrApp.factory('pageableSeekerFactory', ['$http', '$q', 'errorService', 'seekerFactory',
     function ($http, $q, errorService, seekerFactory) {
 

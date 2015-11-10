@@ -6,10 +6,6 @@ import com.rwr.entity.seeker.Seeker;
 
 import javax.persistence.*;
 
-/**
- * Created by haswell on 30.10.15.
- */
-
 @Entity
 @Table(name = "SEEKER_EMAIL")
 public class SeekerEmail extends BaseEntity {
@@ -18,7 +14,7 @@ public class SeekerEmail extends BaseEntity {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "seeker_id")
+    @JoinColumn(name = "seeker_id", referencedColumnName = "id")
     @JsonBackReference
     private Seeker emailOwner;
 

@@ -64,6 +64,7 @@ public class SeekerRepositoryImpl extends BaseRepositoryImpl<Seeker> implements 
 
     @Override
     public void saveOrUpdate(Seeker entity) {
+        entity.getContacts().setContactsOwner(entity);
         for (SeekerSkill skill : entity.getSeekerSkills()) {
             if (skill.getSkillsOwner() == null)
                 skill.setSkillsOwner(entity);

@@ -5,7 +5,7 @@ RwrApp.controller('pageableController',
             var pageableSeekerFactory = appFactory.getPageableSeekerFactory();
             var seekerFactory = appFactory.getSeekerFactory();
             var modalService = appFactory.getModalService();
-            var notifyService = appFactory.getNotificationService();
+            var notifyService = appFactory.getNotifyMessageService();
 
             $scope.page = {
                 sortMode: false,
@@ -54,10 +54,10 @@ RwrApp.controller('pageableController',
             };
 
             $scope.deleteSeekerByIdFromTable = function (id) {
-                $scope.isLastItemInTable();
+                $scope.checkLastItemInTable();
                 seekerFactory.deleteById(id).then(function () {
                     $route.reload();
-                    notifyService.success(setNotifyMessage("Seeker has been deleted successfully."));
+                    notifyService.successMessage("Seeker has been deleted successfully.");
                 });
             };
 
@@ -91,14 +91,13 @@ RwrApp.controller('pageableController',
                 pageableSeekerFactory.setPageableUrl($location.url());
             };
 
-            $scope.isLastItemInTable = function () {
+            $scope.checkLastItemInTable = function () {
                 var lastPage = $scope.seekersPageable.lastPage;
                 var listSize = $scope.seekersPageable.collection.length;
                 var currPage = $location.search().page;
                 if (lastPage === true && listSize === 1 && currPage > 1) {
                     $location.search('page', currPage - 1)
                 }
-                console.log("lastPage=" + lastPage + ',listSize=' + listSize + ',currPage=' + currPage);
             };
 
             $scope.isError = function () {
@@ -126,18 +125,6 @@ RwrApp.controller('pageableController',
                         }
                     });
                 });
-            };
-
-            var notifyOptions = {
-                delay: 4000,
-                positionY: 'top',
-                positionX: 'center'
-            };
-
-            var setNotifyMessage = function (message) {
-                var icon = '<i class="fa fa-fw fa-check-circle"></i>';
-                notifyOptions.message = icon + message;
-                return notifyOptions;
             };
 
             $scope.getSeekersPageableList();

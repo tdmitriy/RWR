@@ -2,7 +2,6 @@
 <%@include file="/WEB-INF/pages/includes/tags.jsp" %>
 
 <%-- Libs/dependences --%>
-<c:url var="font_awesome_css" value="/build/font-awesome/css/font-awesome.min.css"/>
 <c:url var="styles_css" value="/build/css/styles.css"/>
 
 <%-- JS --%>
@@ -18,7 +17,6 @@
 
     <title>Redwerk Recruiting</title>
 
-    <link rel="stylesheet" href="${font_awesome_css}">
     <link rel="stylesheet" href="${styles_css}">
 
 </head>
@@ -35,7 +33,6 @@
 
     <div id="page-wrapper" ng-view>
         <!-- views will be injected here -->
-        <%--<%@include file="/WEB-INF/pages/view/seekerSaveManagementView.jsp" %>--%>
     </div>
     <!-- /#page-wrapper -->
 
@@ -43,8 +40,6 @@
 <!-- /#wrapper -->
 
 <%-- include scripts to footer to increase page loading --%>
-
-<!-- jQuery -->
 <script src="${libs_js}"></script>
 <script src="${angular_rwr_app_js}"></script>
 

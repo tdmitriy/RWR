@@ -36,11 +36,7 @@ public abstract class BaseRepositoryImpl<E extends BaseEntity> implements IBaseR
 
     @Override
     public void saveOrUpdate(final E entity) {
-        if (entity.getId() == null) {
-            entityManager.persist(entity);
-        } else {
-            entityManager.merge(entity);
-        }
+        entityManager.merge(entity);
     }
 
     @Override

@@ -31,6 +31,7 @@
                                 <%-- Save btn --%>
                                 <button type="button" name="btnAddSeeker"
                                         ng-click="saveSeeker(seeker)"
+                                        ng-disabled="seekerForm.$invalid"
                                         class="btn btn-success btn-block">
                                     <i class="fa fa-check-square-o fa-fw"></i>
                                     Add Seeker

@@ -1,19 +1,15 @@
 package com.rwr.entity.contacts;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rwr.entity.email.SeekerEmail;
 import com.rwr.entity.ims.SeekerIms;
 import com.rwr.entity.phone.SeekerPhone;
+import com.rwr.entity.seeker.Seeker;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by haswell on 30.10.15.
- */
 
 @Embeddable
 public class SeekerContacts {
@@ -25,6 +21,10 @@ public class SeekerContacts {
 
     @OneToMany(mappedBy = "imsOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<SeekerIms> seekerIms = new HashSet<>(0);
+
+    @Transient
+    @JsonIgnore
+    private Seeker contactsOwner;
 
     public SeekerContacts() {
     }
@@ -56,7 +56,30 @@ public class SeekerContacts {
         return seekerIms;
     }
 
-    public void setSeekerImses(Set<SeekerIms> seekerIms) {
+    public void setSeekerIms(Set<SeekerIms> seekerIms) {
         this.seekerIms = seekerIms;
+    }
+
+    public Seeker getContactsOwner() {
+        return contactsOwner;
+    }
+
+    public void setContactsOwner(Seeker contactsOwner) {
+        this.contactsOwner = contactsOwner;
+        setOwner();
+    }
+
+    private void setOwner() {
+        for (SeekerPhone phone : seekerPhones) {
+            phone.setPhoneOwner(contactsOwner);
+        }
+
+        for (SeekerEmail email : seekerEmails) {
+            email.setEmailOwner(contactsOwner);
+        }
+
+        for (SeekerIms ims : seekerIms) {
+            ims.setImsOwner(contactsOwner);
+        }
     }
 }

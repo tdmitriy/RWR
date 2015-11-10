@@ -99,6 +99,14 @@ module.exports = function (grunt) {
                 ]
             }
         },
+        //copy bootstrap and font-awesome fonts from lib to build dir
+        copy: {
+            main: {
+                files: [
+                    {expand: true, cwd: libsSrcPath + '/fonts', src: '**', dest: buildDstPath + '/fonts/'}
+                ]
+            }
+        },
         watch: {
             scripts: {
                 files: [libsJsFiles, rwrAppFiles, cssFiles],
@@ -113,7 +121,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    grunt.registerTask('default', ['concat', 'cssmin:concat_css', 'cssmin:minify_css', 'uglify']);
+    grunt.registerTask('default', ['concat', 'cssmin:concat_css', 'cssmin:minify_css', 'uglify', 'copy']);
 };

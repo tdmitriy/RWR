@@ -1,8 +1,8 @@
 RwrApp.factory('appFactory',
-    ['modalService', 'seekerFactory', 'errorService', 'Notification',
+    ['modalService', 'seekerFactory', 'errorService', 'notifyMessageService',
         'pageableSeekerFactory', 'dbTypesFactory',
         function (modalService, seekerFactory, errorService,
-                  Notification, pageableSeekerFactory, dbTypesFactory) {
+                  notifyMessageService, pageableSeekerFactory, dbTypesFactory) {
             return {
                 getSeekerFactory: function () {
                     return seekerFactory;
@@ -13,8 +13,8 @@ RwrApp.factory('appFactory',
                 getErrorService: function () {
                     return errorService;
                 },
-                getNotificationService: function () {
-                    return Notification;
+                getNotifyMessageService: function () {
+                    return notifyMessageService;
                 },
                 getPageableSeekerFactory: function () {
                     return pageableSeekerFactory;
