@@ -21,8 +21,6 @@ RwrApp.controller('pageableController',
 
             $scope.seekersPageable = {};
 
-            $scope
-
             $scope.getSeekersNonSortableList = function (page, maxRecordsPerPage) {
                 $scope.resetErrors();
                 if (typeof page === 'undefined' || page === null) {

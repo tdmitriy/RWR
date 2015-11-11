@@ -2,14 +2,12 @@ RwrApp.controller('managementController', ['$scope', '$route', 'appFactory', '$l
     function ($scope, $route, appFactory, $location, $routeParams) {
         var seekerFactory = appFactory.getSeekerFactory();
         var pageableSeekerFactory = appFactory.getPageableSeekerFactory();
-        var modalService = appFactory.getModalService();
         var notifyService = appFactory.getNotifyMessageService();
         var errorService = appFactory.getErrorService();
         var dbTypesFactory = appFactory.getDbTypesFactory();
 
 
         $scope.seekerForm = {};
-        $scope.seeker = {};
 
         $scope.seekerUpdatable = {
             id: null, firstName: null, lastName: null, dateOfAddition: new Date(), dateOfInterview: null,
@@ -47,7 +45,6 @@ RwrApp.controller('managementController', ['$scope', '$route', 'appFactory', '$l
                 $scope.backToTable();
                 notifyService.successMessage("Seeker has been saved successfully.");
             });
-            console.log(seeker);
         };
 
         $scope.deleteSeekerById = function (id) {

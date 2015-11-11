@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "SKILL_TYPE")
 public class SkillType extends BaseEntity {

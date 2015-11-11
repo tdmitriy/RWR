@@ -6,10 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-/**
- * Created by haswell on 30.10.15.
- */
-
 @Entity
 @Table(name = "IMS_TYPE")
 public class ImsType extends BaseEntity {

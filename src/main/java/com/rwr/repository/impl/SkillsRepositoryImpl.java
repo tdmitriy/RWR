@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
 
-/**
- * Created by Dmitriy on 04.11.2015.
- */
 @Repository
 public class SkillsRepositoryImpl extends BaseRepositoryImpl<SkillType> implements ISkillsRepository {
     @SuppressWarnings("JpaQlInspection")

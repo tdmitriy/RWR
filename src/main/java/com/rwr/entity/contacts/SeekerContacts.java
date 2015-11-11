@@ -10,7 +10,6 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Embeddable
 public class SeekerContacts {
     @OneToMany(mappedBy = "phoneOwner", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
