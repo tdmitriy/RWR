@@ -9,7 +9,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.8</java.version>
+        <java.version>1.7</java.version>
         <mysql-connector-j.version>5.1.30</mysql-connector-j.version>
         <commons-dbcp.version>1.4</commons-dbcp.version>
         <javax.servlet.api.version>3.1.0</javax.servlet.api.version>
@@ -195,7 +195,8 @@
 
     </dependencies>
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>spring-angular</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -208,4 +209,22 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <!-- Openshift properties -->
+            <id>openshift</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.6</version>
+                        <configuration>
+                            <outputDirectory>webapps</outputDirectory>
+                            <warName>ROOT</warName>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
