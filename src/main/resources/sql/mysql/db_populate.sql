@@ -1,4 +1,4 @@
-USE db_rwr;
+USE rwr;
 
 INSERT INTO SEEKER (id, first_name, last_name, date_of_addition, date_of_interview) VALUES
   (1, 'fnameOne', 'lnameOne', '2015-04-02', '2015-05-01'),
