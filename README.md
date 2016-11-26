@@ -7,3 +7,5 @@ This app provides simple recruiting management with REST back-end and JSP + Angu
 * AngularJS
 * Grunt
 
+[Demo](http://rwr-m1tr14.rhcloud.com/#/)
+
